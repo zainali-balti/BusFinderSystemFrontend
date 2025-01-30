@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center image">
+            <!-- <img src="images/registration.webp" alt="registration"> -->
+        </div>
+        <div class="col-12 text-center">
+            <h2>Register Here!</h2>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6 form-container">
+            <input [(ngModel)]="users.firstName" class="input" type="text" name="firstName" placeholder="Enter Your First Name">
+            <div *ngIf="!users.firstName && (submit || users.firstName.length > 0)" class="error">
+                First Name is required.
+            </div>
+            <input [(ngModel)]="users.lastName" class="input" type="text" name="lastName" placeholder="Enter Your Last Name">
+            <div *ngIf="!users.lastName && (submit || users.lastName.length > 0)" class="error">
+                Last Name is required.
+            </div>
+
+            <input [(ngModel)]="users.email" class="input" type="email" name="email" placeholder="Enter Your Email">
+            <div *ngIf="!users.email && (submit || users.email.length > 0)" class="error">
+                Email is required.
+            </div>
+
+            <input [(ngModel)]="users.password" class="input" type="password" name="password" placeholder="Enter Your Password">
+            <div *ngIf="!users.password && (submit || users.password.length > 0)" class="error">
+                Password is required.
+            </div>
+
+            <input [(ngModel)]="users.phoneNo" class="input" type="number" name="phoneNo" placeholder="Enter Your Phone No">
+            <div *ngIf="!users.phoneNo && (submit || users.phoneNo.length > 0)" class="error">
+                Phone Number is required.
+            </div>
+            <select [(ngModel)]="users.role" class="input" name="role">
+                <option value="" disabled selected>Select Your Role</option>
+                <option value="CUSTOMER">CUSTOMER</option>
+                <option value="COMPANY">COMPANY</option>
+            </select>
+            <div *ngIf="!users.role && (submit || users.role.length > 0)" class="error">
+                Role is required.
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-6 buttons">
+            <button (click)="submit()" type="button" class="btn btn-info">Submit</button>
+            <button type="button" class="btn btn-danger">Clear</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="container mt-5">
+    <h2>Add Route</h2>
+    <form #routeForm="ngForm" (ngSubmit)="onSubmit(routeForm)">
+      <div class="form-group">
+        <label for="stopSequence">Stop Sequence</label>
+        <input type="number" class="form-control" id="stopSequence" name="stopSequence" [(ngModel)]="route.stopSequence" required>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="!routeForm.valid">Add Route</button>
+    </form>
+  </div>
+  

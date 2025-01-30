@@ -1,0 +1,43 @@
+<div class="container mt-5">
+    <h2>Add Bus Schedule</h2>
+    <form #scheduleForm="ngForm" (ngSubmit)="onSubmit(scheduleForm)">
+      <div class="form-group">
+        <label for="bus">Bus</label>
+        <select class="form-control" id="bus" name="busId" [(ngModel)]="scheduleData.busId" required>
+          <option *ngFor="let bus of buses" [value]="bus.busId">{{ bus.busName }}</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="stop">Bus Stop</label>
+        <select class="form-control" id="stop" name="stopId" [(ngModel)]="scheduleData.stopId" required>
+          <option *ngFor="let stop of busStops" [value]="stop.stopId">{{ stop.name }}</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="route">Route</label>
+        <select class="form-control" id="route" name="routeId" [(ngModel)]="scheduleData.routeId" required>
+          <option *ngFor="let route of routes" [value]="route.routeId">{{ route.routeId }}</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="arrivalTime">Arrival Time</label>
+        <input class="form-control" type="time" id="arrivalTime" name="arrivalTime" [(ngModel)]="scheduleData.arrivalTime" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="departureTime">Departure Time</label>
+        <input class="form-control" type="time" id="departureTime" name="departureTime" [(ngModel)]="scheduleData.departureTime" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="sequence">Sequence</label>
+        <input class="form-control" type="number" id="sequence" name="sequence" [(ngModel)]="scheduleData.sequence" required>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="scheduleForm.invalid">Submit</button>
+    </form>
+  </div>
+  

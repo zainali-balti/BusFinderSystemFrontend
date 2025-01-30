@@ -1,0 +1,59 @@
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="p-4 bg-white rounded shadow">
+                <div class="row g-3">
+                    <!-- First Select (Source) -->
+                    <div class="col-12 col-md-5">
+                        <select class="form-select" [(ngModel)]="searchForBusDto.source">
+                            <option selected disabled>Select Source</option>
+                            <option *ngFor="let stop of busStops" [value]="stop.stopId">
+                                {{ stop.name }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Second Select (Destination) -->
+                    <div class="col-12 col-md-5">
+                        <select class="form-select" [(ngModel)]="searchForBusDto.destination">
+                            <option selected disabled>Select Destination</option>
+                            <option *ngFor="let stop of busStops" [value]="stop.stopId">
+                                {{ stop.name }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Search Button -->
+                    <div class="col-12 col-md-2">
+                        <button class="btn btn-primary w-100" (click)="search()">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="buses.length > 0">
+    <h3>Available Buses</h3>
+    <div class="bus-cards-container">
+      <div *ngFor="let fare of buses" class="bus-card">
+        <div class="card-header">
+          <h4>{{ fare.bus.busName }} ({{ fare.bus.status }})</h4>
+          <p>{{ fare.bus.busNumber }}</p>
+        </div>
+        <div class="card-body">
+          <img *ngIf="fare.bus.img" [src]="fare.bus.img" alt="Bus Image" class="bus-image" />
+          <p><strong>Fare:</strong> {{ fare.fare }} PKR</p>
+          <p><strong>Source:</strong> {{ fare.sourceStop.name }}</p>
+          <p><strong>Destination:</strong> {{ fare.destinationStop.name }}</p>
+          <p><strong>Route ID:</strong> {{ fare.route.routeId }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="buses.length === 0">
+    <p>No buses found for the selected route.</p>
+  </div>
+
+

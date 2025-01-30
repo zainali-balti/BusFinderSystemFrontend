@@ -1,0 +1,78 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="p-4 bg-white rounded shadow">
+        <!-- Bus Image Section -->
+        <div class="text-center mb-4">
+          <img 
+            *ngIf="bus.img" 
+            [src]="bus.img" 
+            alt="Bus Image" 
+            class="rounded-circle bus-image" 
+            width="150" 
+            height="150"
+          />
+        </div>
+
+        <!-- Form Section -->
+        <form (ngSubmit)="onSubmit(busForm)" #busForm="ngForm">
+          <!-- Bus Name -->
+          <div class="mb-3">
+            <label for="busName" class="form-label">Bus Name</label>
+            <input
+              type="text"
+              id="busName"
+              class="form-control"
+              [(ngModel)]="bus.busName"
+              name="busName"
+              required
+            />
+          </div>
+
+          <!-- Bus Number -->
+          <div class="mb-3">
+            <label for="busNumber" class="form-label">Bus Number</label>
+            <input
+              type="text"
+              id="busNumber"
+              class="form-control"
+              [(ngModel)]="bus.busNumber"
+              name="busNumber"
+              required
+            />
+          </div>
+
+          <!-- Bus Capacity -->
+          <div class="mb-3">
+            <label for="capacity" class="form-label">Capacity</label>
+            <input
+              type="number"
+              id="capacity"
+              class="form-control"
+              [(ngModel)]="bus.capacity"
+              name="capacity"
+              required
+            />
+          </div>
+
+          <!-- Image Upload -->
+          <div class="mb-3">
+            <label for="img" class="form-label">Bus Image</label>
+            <input
+              type="file"
+              id="img"
+              class="form-control"
+              (change)="onFileChange($event)"
+              name="img"
+            />
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary w-100" [disabled]="!busForm.form.valid">
+            Add Bus
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

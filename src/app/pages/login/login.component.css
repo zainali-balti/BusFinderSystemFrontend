@@ -1,0 +1,45 @@
+
+.container{
+    box-shadow: 0px 0px 30px -10px;
+    padding-bottom: 40px;
+    margin-top: 50px;
+ }
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.form-control {
+    height: 50px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.btn-lg {
+    width: 40%;
+    height: 50px;
+    font-size: 18px;
+}
+
+.mt-4 {
+    margin-top: 40px;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 800px) {
+    .btn-lg {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px; 
+    }
+}
+
+/* Media query for mobile devices */
+@media (max-width: 576px) {
+    .btn-lg {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px; 
+    }
+}

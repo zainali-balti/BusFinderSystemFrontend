@@ -1,0 +1,77 @@
+<!-- vehicle.component.html -->
+<div class="container mt-5">
+    <h2>Add Vehicle</h2>
+    <form (ngSubmit)="onSubmit(vehicleForm)" #vehicleForm="ngForm">
+      
+      <!-- Image Preview -->
+      <div class="text-center mb-4">
+        <img *ngIf="vehicle.img" [src]="vehicle.img" alt="Vehicle Image" class="img-fluid rounded-circle" width="150" height="150">
+      </div>
+  
+      <div class="row">
+        <!-- Vehicle Name -->
+        <div class="col-md-6 mb-3">
+          <label for="vehicleName" class="form-label">Vehicle Name</label>
+          <input type="text" class="form-control" id="vehicleName" name="vehicleName" [(ngModel)]="vehicle.vehicleName" required>
+        </div>
+  
+        <!-- Color -->
+        <div class="col-md-6 mb-3">
+          <label for="color" class="form-label">Color</label>
+          <input type="text" class="form-control" id="color" name="color" [(ngModel)]="vehicle.color" required>
+        </div>
+      </div>
+  
+      <div class="row">
+        <!-- Engine Number -->
+        <div class="col-md-6 mb-3">
+          <label for="engineNo" class="form-label">Engine Number</label>
+          <input type="text" class="form-control" id="engineNo" name="engineNo" [(ngModel)]="vehicle.engineNo" required>
+        </div>
+  
+        <!-- Model Number -->
+        <div class="col-md-6 mb-3">
+          <label for="modelNo" class="form-label">Model Number</label>
+          <input type="text" class="form-control" id="modelNo" name="modelNo" [(ngModel)]="vehicle.modelNo" required>
+        </div>
+      </div>
+  
+      <div class="row">
+        <!-- Total Seats -->
+        <div class="col-md-6 mb-3">
+          <label for="totalSeats" class="form-label">Total Seats</label>
+          <input type="number" class="form-control" id="totalSeats" name="totalSeats" [(ngModel)]="vehicle.totalSeats" required>
+        </div>
+  
+        <!-- Description -->
+        <div class="col-md-6 mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" name="description" [(ngModel)]="vehicle.description" rows="3" required></textarea>
+        </div>
+      </div>
+  
+      <div class="row">
+        <!-- Price -->
+        <div class="col-md-6 mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" class="form-control" id="price" name="price" [(ngModel)]="vehicle.price" required>
+        </div>
+  
+        <!-- Distance -->
+        <div class="col-md-6 mb-3">
+          <label for="distance" class="form-label">Distance</label>
+          <input type="number" class="form-control" id="distance" name="distance" [(ngModel)]="vehicle.distance" required>
+        </div>
+      </div>
+  
+      <!-- Image Upload -->
+      <div class="mb-3">
+        <label for="img" class="form-label">Upload Image</label>
+        <input type="file" class="form-control" id="img" (change)="onFileChange($event)" required>
+      </div>
+  
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary" [disabled]="!vehicleForm.form.valid">Add Vehicle</button>
+    </form>
+  </div>
+  
