@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { BusScheduleService } from '../../../service/bus-schedule.service';
 import { BusesService } from '../../../service/buses.service';
-import { BusStopsService } from '../../../service/bus-stops.service';
 import { RouteService } from '../../../service/route.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-bus-schedule',
@@ -17,76 +18,85 @@ import { CommonModule } from '@angular/common';
   styleUrl: './bus-schedule.component.css'
 })
 export class BusScheduleComponent {
-  buses: any[] = [];
-  busStops: any[] = [];
-  routes: any[] = [];
   scheduleData = {
     busId: '',
-    stopId: '',
-    routeId: '',
+    busRouteId: '',
     arrivalTime: '',
     departureTime: '',
-    sequence: 1
+    routeId:'',
+    sourceStopId:'',
+    destinationStopId:''
+
   };
+  buses: any[] = [];
+  busRoute: any[]= [];
   busId: string | null = null;
-  stopId: string | null = null;
-  routeId: string | null = null;
+  busRouteId: string | null = null;
 
   constructor(
     private busScheduleService: BusScheduleService,
     private busService: BusesService,
-    private busStopService: BusStopsService,
     private routeService: RouteService,
     private rout: ActivatedRoute,
     private router: Router
   ) {
     this.rout.params.subscribe(params => {
       this.busId = params['busId'];
-      this.stopId = params['stopId'];
-      this.routeId = params['routeId'];
+      this.busRouteId = params['busRouteId'];
+      console.log(this.busId);
+      console.log(this.busRouteId);
       if (this.busId) {
         this.loadBuses(this.busId);
       }
-      if (this.stopId) {
-        this.loadBusStops(this.stopId);
-      }
-      if (this.routeId) {
-        this.loadRoutes(this.routeId);
+      if (this.busRouteId) {
+        this.loadRoutes(this.busRouteId);
       }
     });
   }
 
  loadBuses(busId: string) {
-  this.busService.getBus(busId).subscribe(bus => {
+  this.busService.getBus(busId).subscribe((bus:any) => {
     this.buses = [bus];  
+    this.scheduleData.busId = bus.busId;
   });
 }
 
-loadBusStops(stopId: string) {
-  this.busStopService.getBusStopsById(stopId).subscribe(busStop => {
-    this.busStops = [busStop]; 
+loadRoutes(busRouteId: string) {
+  this.routeService.getRoute(busRouteId).subscribe((route:any) => {
+    this.busRoute = [route]; 
+    this.scheduleData.busRouteId = route.busRouteId;
+     this.scheduleData.routeId = route.routeId; 
+     this.scheduleData.sourceStopId = route.sourceStopId;
+     this.scheduleData.destinationStopId = route.destinationStopId;
   });
 }
 
-loadRoutes(routeId: string) {
-  this.routeService.getRoute(routeId).subscribe(route => {
-    this.routes = [route]; 
-  });
-}
+
 
 onSubmit(form: NgForm) {
   if (form.valid) {
-    if (this.busId && this.stopId && this.routeId) {
-      this.busScheduleService.addBusSchedule(this.scheduleData, this.busId, this.stopId, this.routeId).subscribe(
+    if (this.scheduleData.busId && this.scheduleData.busRouteId) {
+      this.busScheduleService.addBusSchedule(this.scheduleData).subscribe(
         (response: any) => {
           console.log('Full API Response:', response);
-          
-          // ✅ Correctly extract routeId from response.data
           const routeId = response?.data?.routeId;
-
           if (routeId) {
             console.log('Route ID:', routeId);
-            this.router.navigate(['/fare', this.busId,this.stopId,routeId]);
+            this.scheduleData.routeId = routeId;
+
+            Swal.fire({
+              title: 'Success!',
+              text: 'Bus schedule created successfully.',
+              icon: 'success',
+              confirmButtonText: 'OK'
+            }).then(() => {
+              if (this.scheduleData.busId && this.scheduleData.busRouteId && this.scheduleData.routeId) {
+                this.router.navigate(['/fare', this.scheduleData.busId, this.scheduleData.busRouteId]);
+              } else {
+                console.error('Navigation error: One or more required values are missing.');
+                alert('Failed to navigate. Some required values are missing.');
+              }
+            });
           } else {
             console.error('Error: Route ID is missing in API response.');
             alert('Failed to retrieve Route ID. Please check backend response.');
@@ -98,9 +108,10 @@ onSubmit(form: NgForm) {
         }
       );
     } else {
-      alert('Bus ID, Stop ID, or Route ID is missing.');
+      alert('Bus ID, Route ID, or other required fields are missing.');
     }
   }
 }
+
 
 }

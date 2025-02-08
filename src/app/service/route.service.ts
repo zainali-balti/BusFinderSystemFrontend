@@ -9,14 +9,14 @@ import baseUrl from './Url';
 export class RouteService {
 
   constructor(private http: HttpClient) {}
-  addRoute(formData:Object,busId:String,stopId:String): Observable<any[]> {
+  addBusRoute(formData:Object): Observable<any[]> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + localStorage.getItem('token'),
       'Content-Type': 'application/json'
     });
-    return this.http.post<any[]>(`${baseUrl}/api/route/add/${busId}/${stopId}`,formData,{headers});
+    return this.http.post<any[]>(`${baseUrl}/api/route/add`,formData,{headers});
   }
-  getRoute(routeId:String): Observable<any> {
+  getRoute(busRouteId:String): Observable<any> {
     const token = localStorage.getItem('token');
     if (!token) {
       throw new Error('User is not authenticated');
@@ -25,6 +25,17 @@ export class RouteService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get(`${baseUrl}/api/route/${routeId}`, { headers });
+    return this.http.get(`${baseUrl}/api/route/id/${busRouteId}`, { headers });
+  }
+  getAllRoute(): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${baseUrl}/api/route`, { headers });
   }
 }

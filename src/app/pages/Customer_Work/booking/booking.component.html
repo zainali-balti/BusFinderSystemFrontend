@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div *ngFor="let vehicle of vehicles" class="col-md-4 col-sm-6 mb-4">
+      <div class="card shadow">
+        <img *ngIf="vehicle.returnedImg" [src]="'data:image/jpeg;base64,' + vehicle.returnedImg" class="card-img-top" alt="Vehicle Image">
+        <div class="card-body">
+          <h5 class="card-title"><strong>{{ vehicle.vehicleName }}</strong></h5>
+          <p class="card-text">
+            <strong>Owner:</strong> {{ vehicle.ownerName }}<br>
+            <strong>Model:</strong> {{ vehicle.modelNo }}<br>
+            <strong>Color:</strong> {{ vehicle.color }}<br>
+            <strong>Price:</strong> {{ vehicle.price | currency:'PKR' }}<br>
+            <strong>Seats:</strong> {{ vehicle.totalSeats }}<br>
+          </p>
+          <p class="card-text">
+            <strong>Description:</strong>
+            <span *ngIf="!vehicle.showFullDescription">
+              {{ getShortDescription(vehicle.description) }}...
+              <a href="#" (click)="toggleDescription(vehicle, $event)">Read More</a>
+            </span>
+            <span *ngIf="vehicle.showFullDescription">
+              {{ vehicle.description }}
+              <a href="#" (click)="toggleDescription(vehicle, $event)">Read Less</a>
+            </span>
+          </p>
+          <button class="btn btn-success w-100 mt-2" (click)="bookVehicle(vehicle.id)">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

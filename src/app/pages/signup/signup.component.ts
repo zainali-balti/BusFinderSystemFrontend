@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../service/user.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-signup',
@@ -28,7 +30,15 @@ export class SignupComponent {
   submit(){
     return this.userService.addUsers(this.users).subscribe((data)=>{
       console.log(data)
-      this.router.navigate(['login']);
+        Swal.fire({
+                          title: 'Success!',
+                          text: 'successfully Signup.',
+                          icon: 'success',
+                          confirmButtonText: 'OK'
+                        }).then(() => {
+                        this.router.navigate(['login']);
+                        });
+      
     }
   
     );

@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <h2>Wallet Details</h2>
+  <div *ngIf="walletDto.walletId">
+    <p><strong>Wallet ID:</strong> {{ walletDto.walletId }}</p>
+    <p><strong>Balance:</strong> ${{ walletDto.balance }}</p>
+  </div>
+  <div *ngIf="!walletDto.walletId">
+    <p>Loading wallet details...</p>
+  </div>
+
+  <h2 class="mt-4">Transaction History</h2>
+  <table class="table table-striped" *ngIf="transactions.length > 0">
+    <thead>
+      <tr>
+        <th>Transaction ID</th>
+        <th>Amount</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td>{{ transaction.transactionId }}</td>
+        <td>${{ transaction.amount }}</td>
+        <td>{{ transaction.transactionType }}</td>
+        <td>{{ transaction.description || 'N/A' }}</td>
+        <td>{{ transaction.transactionTime ? (transaction.transactionTime | date:'short') : 'N/A' }}</td> 
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="deleteBooking(bookingId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="transactions.length === 0">No transactions found for this wallet.</p>
+</div>

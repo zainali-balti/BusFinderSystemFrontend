@@ -1,12 +1,51 @@
-<div class="container mt-5">
-    <h2>Add Route</h2>
-    <form #routeForm="ngForm" (ngSubmit)="onSubmit(routeForm)">
-      <div class="form-group">
-        <label for="stopSequence">Stop Sequence</label>
-        <input type="number" class="form-control" id="stopSequence" name="stopSequence" [(ngModel)]="route.stopSequence" required>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="p-4 bg-white rounded shadow">
+
+        <h4 class="text-center mb-4">Assign Route to Bus</h4>
+
+        <form (ngSubmit)="onSubmit()">
+          <!-- Select Route -->
+          <div class="mb-3">
+            <label for="route" class="form-label">Select Route</label>
+            <select id="route" class="form-control" [(ngModel)]="busRoute.routeId" name="routeId" required>
+              <option value="" disabled>Select Route</option>
+              <option *ngFor="let r of routes" [value]="r.routeId">{{ r.routeName }}</option>
+            </select>
+          </div>
+
+          <!-- Select Source Stop -->
+          <div class="mb-3">
+            <label for="sourceStop" class="form-label">Source Stop</label>
+            <select id="sourceStop" class="form-control" [(ngModel)]="busRoute.sourceStopId" name="sourceStopId" required>
+              <option value="" disabled>Select Source Stop</option>
+              <option *ngFor="let stop of busStops" [value]="stop.stopId">{{ stop.name }}</option>
+            </select>
+          </div>
+
+          <!-- Select Destination Stop -->
+          <div class="mb-3">
+            <label for="destinationStop" class="form-label">Destination Stop</label>
+            <select id="destinationStop" class="form-control" [(ngModel)]="busRoute.destinationStopId" name="destinationStopId" required>
+              <option value="" disabled>Select Destination Stop</option>
+              <option *ngFor="let stop of busStops" [value]="stop.stopId">{{ stop.name }}</option>
+            </select>
+          </div>
+
+          <!-- Sequence Number -->
+          <div class="mb-3">
+            <label for="sequence" class="form-label">Sequence</label>
+            <input type="number" id="sequence" class="form-control" [(ngModel)]="busRoute.sequence" name="sequence" required />
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary w-100">Assign Route</button>
+        </form>
+
       </div>
-  
-      <button type="submit" class="btn btn-primary" [disabled]="!routeForm.valid">Add Route</button>
-    </form>
+    </div>
   </div>
+</div>
+
   

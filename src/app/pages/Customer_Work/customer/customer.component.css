@@ -1,34 +1,81 @@
-/* bus-search.component.css */
 .bus-cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center; /* Centers the cards */
+}
+
+.bus-card {
+  width: 30%; /* Each card takes 30% width */
+  max-width: 350px; /* Prevents excessive stretching */
+  min-width: 280px; /* Minimum width for each card */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center text in the card */
+}
+
+/* Header styling for left & right alignment */
+.card-header {
+  display: flex;
+  justify-content: space-between; /* Pushes left and right sections apart */
+  align-items: center;
+}
+
+/* Left side (Status, Arrival) */
+.header-left {
+  text-align: left;
+  flex: 1; /* Takes equal width */
+}
+
+/* Right side (Bus Name, Departure) */
+.header-right {
+  text-align: right;
+  flex: 1; /* Takes equal width */
+}
+
+/* Center the body content (Fare, Capacity, Image, Button) */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content */
+  justify-content: center;
+}
+
+/* Bus image styles */
+.bus-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Book Now button styling */
+.btn-success {
+  margin-top: 10px;
+  padding: 8px 15px;
+  font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
   .bus-card {
-    width: 250px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 45%; /* 2 cards per row */
   }
-  
-  .card-header h4 {
-    margin: 0;
-    font-size: 18px;
+}
+
+@media (max-width: 600px) {
+  .bus-card {
+    width: 90%; /* 1 card per row, centered */
   }
-  
-  .card-body {
-    margin-top: 10px;
+
+  .card-header {
+    flex-direction: column;
+    text-align: center;
   }
-  
-  .bus-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+
+  .header-left,
+  .header-right {
+    text-align: center;
   }
-  
-  .bus-card p {
-    margin: 5px 0;
-  }
-  
+}

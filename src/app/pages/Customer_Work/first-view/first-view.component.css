@@ -1,0 +1,46 @@
+/* Add custom styles for the button images and animation */
+.img-btn {
+    position: relative;
+    width: 30%;
+    height: 200px; /* Adjust height as needed */
+    overflow: hidden;
+    border: none;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .img-btn img {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: top 0.5s ease-in-out;
+  }
+  
+  .img-btn:hover img {
+    top: 0; /* Move image from top to bottom */
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+  }
+  
+  /* Make it fully responsive */
+  @media (max-width: 768px) {
+    .img-btn {
+      width: 45%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .img-btn {
+      width: 100%;
+    }
+  }
+  

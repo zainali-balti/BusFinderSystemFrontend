@@ -1,0 +1,24 @@
+<div *ngIf="fares.length > 0">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Fare ID</th>
+        <th scope="col">Bus Route ID</th>
+        <th scope="col">Bus ID</th>
+        <th scope="col">Fare</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fare of fares">
+        <td>{{ fare.fareId }}</td>
+        <td>{{ fare.busRouteId }}</td>
+        <td>{{ fare.busId }}</td>
+        <td>{{ fare.fare | currency: 'USD': true }}</td> 
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="fares.length === 0">
+  <p class="text-center text-muted">No fares found for the given bus.</p>
+</div>

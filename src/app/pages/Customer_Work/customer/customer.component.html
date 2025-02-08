@@ -3,9 +3,9 @@
         <div class="col-md-8 col-lg-6">
             <div class="p-4 bg-white rounded shadow">
                 <div class="row g-3">
-                    <!-- First Select (Source) -->
+                    <!-- Source Stop Select -->
                     <div class="col-12 col-md-5">
-                        <select class="form-select" [(ngModel)]="searchForBusDto.source">
+                        <select class="form-select" [(ngModel)]="searchForBusDto.sourceStopId">
                             <option selected disabled>Select Source</option>
                             <option *ngFor="let stop of busStops" [value]="stop.stopId">
                                 {{ stop.name }}
@@ -13,9 +13,9 @@
                         </select>
                     </div>
 
-                    <!-- Second Select (Destination) -->
+                    <!-- Destination Stop Select -->
                     <div class="col-12 col-md-5">
-                        <select class="form-select" [(ngModel)]="searchForBusDto.destination">
+                        <select class="form-select" [(ngModel)]="searchForBusDto.destinationStopId">
                             <option selected disabled>Select Destination</option>
                             <option *ngFor="let stop of busStops" [value]="stop.stopId">
                                 {{ stop.name }}
@@ -33,27 +33,43 @@
     </div>
 </div>
 
-<div *ngIf="buses.length > 0">
-    <h3>Available Buses</h3>
-    <div class="bus-cards-container">
-      <div *ngFor="let fare of buses" class="bus-card">
-        <div class="card-header">
-          <h4>{{ fare.bus.busName }} ({{ fare.bus.status }})</h4>
-          <p>{{ fare.bus.busNumber }}</p>
+<!-- Buses List -->
+<div *ngIf="buses.length > 0" class="mt-4">
+    <div class="bus-cards-container ">
+        <div *ngFor="let bus of buses" class="bus-card">
+            <div class="card-header">
+                <div class="card-header">
+                    <div class="header-left">
+                        <p><strong>Bus Name: </strong>{{ bus.busName }}</p>
+                        <p><strong>Arrival Time:</strong> {{ bus.arrivalTime }}</p>
+                    </div>
+                    <div class="header-right">
+                        <p><strong>Status:</strong> {{ bus.status }}</p>
+                        <p><strong>Departure Time:</strong> {{ bus.departureTime }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <img *ngIf="bus.img" [src]="'data:image/jpeg;base64,' + bus.img" alt="Bus Image" class="bus-image" />
+            </div>
+            <div class="card-header">
+                <div class="header-left">
+                    <p><strong>Price:</strong> {{ bus.fare }} PKR</p>
+                </div>
+                <div class="header-right">   
+                    <p><strong>Capacity:</strong> {{ bus.capacity }}</p>
+                </div>
+            </div>
+            <button class="btn btn-success mt-2" 
+        (click)="bookBus(bus)" 
+        [disabled]="bus.status === 'INACTIVE'">
+    Book Now
+</button>
+
         </div>
-        <div class="card-body">
-          <img *ngIf="fare.bus.img" [src]="fare.bus.img" alt="Bus Image" class="bus-image" />
-          <p><strong>Fare:</strong> {{ fare.fare }} PKR</p>
-          <p><strong>Source:</strong> {{ fare.sourceStop.name }}</p>
-          <p><strong>Destination:</strong> {{ fare.destinationStop.name }}</p>
-          <p><strong>Route ID:</strong> {{ fare.route.routeId }}</p>
-        </div>
-      </div>
     </div>
-  </div>
-  
-  <div *ngIf="buses.length === 0">
+</div>
+
+<div  *ngIf="buses.length === 0" class="mt-4 text-center">
     <p>No buses found for the selected route.</p>
-  </div>
-
-
+</div>

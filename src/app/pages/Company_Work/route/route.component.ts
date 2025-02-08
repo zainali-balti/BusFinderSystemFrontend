@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouteService } from '../../../service/route.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { BusStopsService } from '../../../service/bus-stops.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-route',
@@ -15,44 +18,105 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class RouteComponent {
   busId: string | null = null;
-  stopId: string | null = null;
-  route = {
-    routeId:'',
-    stopSequence:''
+  busStops: any[] = [];
+  routes: any[] = [];
+  busRoute = {
+    busRouteId:'',
+    routeId: '',
+    sourceStopId: '',
+    destinationStopId: '',
+    sequence: ''
   };
-  constructor(private rout: ActivatedRoute,private routeService:RouteService, private router: Router) {
-      this.rout.params.subscribe(params => {
-        this.busId = params['busId'];
-        this.stopId = params['stopId'];
-      });
-    }
 
-    ngOnInit() {
-      console.log('Bus ID:', this.busId);
-      console.log('Stop ID:', this.stopId);
-    }
+  constructor(
+    private rout: ActivatedRoute,
+    private routeService: RouteService,
+    private router: Router,
+    private stopService: BusStopsService
+  ) {
+    this.rout.params.subscribe(params => {
+      this.busId = params['busId'];
+    });
+  }
 
+  ngOnInit() {
+    console.log('Bus ID:', this.busId);
+    this.getBusStops();
+    this.getAllRoutesForBus();
+  }
 
-    onSubmit(form: NgForm) {
-      if (form.valid && this.busId && this.stopId) {
-        this.routeService.addRoute(this.route, this.busId, this.stopId).subscribe(
-          (response: any) => {
-            console.log('Response:', response);  // Log the entire response
-            if (response && response.routeId) {
-              console.log('Route ID:', response.routeId);
-              this.router.navigate(['/schedule', this.busId, this.stopId, response.routeId]);
-            } else {
-              console.error('Route ID not found in response');
-              alert('Failed to add route. Route ID is missing.');
-            }
-          },
-          error => {
-            console.error('Error adding route:', error);
-            alert('Failed to add route. Please try again.');
-          }
-        );
-      } else {
-        alert('Please fill out the form correctly.');
+  getBusStops() {
+    this.stopService.getBusStops().subscribe(
+      (response) => {
+        console.log('Bus Stops Response:', response); 
+        this.busStops = response;
+      },
+      (error) => {
+        console.error('Error fetching bus stops:', error);
       }
+    );
+  }
+  
+
+  getAllRoutesForBus() {
+    this.routeService.getAllRoute().subscribe(
+      (response) => {
+        this.routes = response;
+      },
+      (error) => {
+        console.error('Error fetching routes:', error);
+      }
+    );
+  }
+
+  onSubmit() {
+    if (
+      !this.busRoute.routeId ||
+      !this.busRoute.sourceStopId ||
+      !this.busRoute.destinationStopId ||
+      !this.busRoute.sequence
+    ) {
+      alert('Please fill all fields!');
+      return;
     }
+  
+    const formData = {
+      busId: this.busId,
+      routeId: this.busRoute.routeId,
+      sourceStopId: this.busRoute.sourceStopId,
+      destinationStopId: this.busRoute.destinationStopId,
+      sequence: this.busRoute.sequence
+    };
+  
+    this.routeService.addBusRoute(formData).subscribe(
+      (response: any) => {
+        console.log('Full API Response:', response);
+        if (!response || !response.routeId) {
+          console.error('Invalid API response:', response);
+          alert('Failed to retrieve route data. Please check the backend.');
+          return;
+        }
+        this.busRoute.busRouteId = response.routeId;
+        if (this.busRoute.busRouteId) {
+          console.log(this.busRoute.busRouteId);
+          Swal.fire({
+                        title: 'Success!',
+                        text: 'Bus Route created successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                      }).then(() => {
+                        this.router.navigate(['/schedule', this.busId, this.busRoute.busRouteId]);
+                      });
+        } else {
+          alert('Route ID is missing. Please check API response.');
+        }
+      },
+      (error) => {
+        console.error('Error adding bus route:', error);
+        alert('Failed to add bus route. Please try again.');
+      }
+    );
+  }
+
 }
+

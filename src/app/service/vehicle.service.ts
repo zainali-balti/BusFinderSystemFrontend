@@ -21,7 +21,28 @@ export class VehicleService {
 
     return this.http.post(`${baseUrl}/api/company/add/${userId}`, formData, { headers });
   }
-  private getCurrentUser(): any {
-    return JSON.parse(localStorage.getItem('user') || '{}');
+  getAllVehicles(): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${baseUrl}/api/company/all`, { headers });
   }
+  getVehicleById(vehicleId:number): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${baseUrl}/api/company/${vehicleId}`, { headers });
+  }
+
 }

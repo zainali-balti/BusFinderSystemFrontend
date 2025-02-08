@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BusesService } from '../../../service/buses.service';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-bus',
@@ -14,16 +15,34 @@ import { Router } from '@angular/router';
   templateUrl: './bus.component.html',
   styleUrl: './bus.component.css'
 })
-export class BusComponent {
+export class BusComponent implements OnInit {
+
+  userId: string | null = null;
   bus = {
-    busId:'',
+    busId: '',
     busName: '',
     busNumber: '',
     capacity: 0,
-    img: null
+    img: null,
+    userId: '',
+    status:'Active'
   };
 
-  constructor(private busService: BusesService, private http: HttpClient,private router: Router) {}
+  constructor(
+    private busService: BusesService, 
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {  
+    this.route.queryParams.subscribe(params => {
+      this.userId = params['userId'];
+      if (this.userId) {
+        this.bus.userId = this.userId;
+      }
+    });
+  }
+
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -34,6 +53,7 @@ export class BusComponent {
       reader.readAsDataURL(file);
     }
   }
+
   dataURLtoBlob(dataURL: string) {
     const byteString = atob(dataURL.split(',')[1]);
     const arrayBuffer = new ArrayBuffer(byteString.length);
@@ -43,42 +63,42 @@ export class BusComponent {
     }
     return new Blob([uint8Array], { type: 'image/jpeg' });
   }
+
   onSubmit(form: NgForm) {
     if (form.valid) {
-      const currentUserId = this.getUserId();
-      if (!currentUserId) {
-        alert('User is not authenticated!');
+      if (!this.bus.userId) { 
+        alert('User ID is missing!');
         return;
       }
+      
       const formData = new FormData();
       formData.append('busName', this.bus.busName);
       formData.append('busNumber', this.bus.busNumber);
       formData.append('capacity', this.bus.capacity.toString());
+      formData.append('userId', this.bus.userId); 
+      formData.append('status', this.bus.status);
+
       if (this.bus.img) {
         formData.append('img', this.dataURLtoBlob(this.bus.img), 'busImage.jpg');
       }
-      this.busService.addBus(formData, currentUserId).subscribe(
+
+      this.busService.addBus(formData).subscribe(
         (response: any) => {
           console.log('Bus added successfully:', response);
-          this.router.navigate(['/bus-stop',response.busId]);
-          if (response?.message) {
-            alert(response.message);
-          } else {
-            alert('Bus added successfully!');
-          }
-         
+          Swal.fire({
+                        title: 'Success!',
+                        text: 'Bus created successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                      }).then(() => {
+                        this.router.navigate(['/route', response.busId]);
+                      });
         },
         error => {
           console.error('Error adding bus:', error);
           alert('Failed to add bus. Please try again.');
         }
       );      
-      
     }
   }
-  getUserId(): string | null {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user).id : null;
-  }
-
 }

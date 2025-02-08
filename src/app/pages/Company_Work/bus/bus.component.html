@@ -2,19 +2,18 @@
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
       <div class="p-4 bg-white rounded shadow">
-        <!-- Bus Image Section -->
+        <!-- Image Preview -->
         <div class="text-center mb-4">
           <img 
             *ngIf="bus.img" 
             [src]="bus.img" 
             alt="Bus Image" 
-            class="rounded-circle bus-image" 
+            class="rounded-circle bus-image border border-primary p-1" 
             width="150" 
             height="150"
           />
         </div>
 
-        <!-- Form Section -->
         <form (ngSubmit)="onSubmit(busForm)" #busForm="ngForm">
           <!-- Bus Name -->
           <div class="mb-3">
@@ -55,6 +54,16 @@
             />
           </div>
 
+          <div class="mb-3">
+            <label for="status" class="form-label">Bus Status</label>
+            <select id="status" class="form-control" [(ngModel)]="bus.status" name="status" required>
+              <option value="" disabled>Select Status</option>
+              <option value="ACTIVE">ACTIVE</option>
+              <option value="INACTIVE">INACTIVE</option>
+            </select>
+          </div>
+          
+
           <!-- Image Upload -->
           <div class="mb-3">
             <label for="img" class="form-label">Bus Image</label>
@@ -67,8 +76,20 @@
             />
           </div>
 
+          <!-- Hidden Field for User ID -->
+          <input type="hidden" [(ngModel)]="bus.userId" name="userId" />
+
+          <!-- Show warning if userId is missing -->
+          <div *ngIf="!bus.userId" class="alert alert-danger text-center">
+            User ID is missing! Please log in.
+          </div>
+
           <!-- Submit Button -->
-          <button type="submit" class="btn btn-primary w-100" [disabled]="!busForm.form.valid">
+          <button 
+            type="submit" 
+            class="btn btn-primary w-100"
+            [disabled]="!busForm.form.valid || !bus.userId"
+          >
             Add Bus
           </button>
         </form>

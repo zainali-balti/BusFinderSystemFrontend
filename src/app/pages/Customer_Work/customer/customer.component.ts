@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BusStopsService } from '../../../service/bus-stops.service';
 import { FareService } from '../../../service/fare.service';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-customer',
   imports: [
@@ -15,41 +16,68 @@ import { FareService } from '../../../service/fare.service';
 export class CustomerComponent {
   busStops: any[] = [];
   searchForBusDto = {
-     source: '', 
-     destination: '' 
-    }; 
-  buses: any[] = []; 
+    sourceStopId: '',
+    destinationStopId: ''
+  };
+  buses: any[] = [];
+  userId: number | null = null;
 
-  constructor(private stopService: BusStopsService,private fareService:FareService) {}
+  constructor(
+    private rout: ActivatedRoute,
+    private stopService: BusStopsService,
+    private fareService: FareService,
+    private route: Router
+  ) {}
 
   ngOnInit() {
-    this.getBusStops(); 
+    this.getBusStops();
+    this.rout.queryParams.subscribe(params => {
+      this.userId = params['userId'];
+    });
   }
+
   getBusStops() {
     this.stopService.getBusStops().subscribe(
-      (response) => {
-        this.busStops = response;  
+      response => {
+        this.busStops = response;
       },
-      (error) => {
-        console.error('Error fetching bus stops:', error); 
+      error => {
+        console.error('Error fetching bus stops:', error);
       }
     );
   }
+
   search() {
-    if (!this.searchForBusDto.source || !this.searchForBusDto.destination) {
+    if (!this.searchForBusDto.sourceStopId || !this.searchForBusDto.destinationStopId) {
       alert('Please select both Source and Destination.');
       return;
     }
-
-    console.log("Searching for route from:", this.searchForBusDto.source, "to", this.searchForBusDto.destination);
-    this.fareService.getAllBusesBySourceAndDestination(this.searchForBusDto).subscribe(
-      (response) => {
-        this.buses = response;
+    this.fareService.getAllBusesBySourceAndDestination({
+      sourceStopId: this.searchForBusDto.sourceStopId,
+      destinationStopId: this.searchForBusDto.destinationStopId
+    }).subscribe(
+      response => {
+        this.buses = response; 
         console.log('Fetched buses:', this.buses);
       },
-      (error) => {
-        console.error('Error fetching buses:', error); 
+      error => {
+        console.error('Error fetching buses:', error);
       }
     );
   }
+
+  bookBus(bus: any) {
+    this.route.navigate(['/bus_booking'], {
+      queryParams: {
+        busId: bus.busId,
+        busName: bus.busName,
+        busNumber: bus.busNumber,
+        fare: bus.fare,
+        fareId:bus.fareId,
+        userId: this.userId,
+        status: bus.status
+      }
+    });
+  }
 }
+

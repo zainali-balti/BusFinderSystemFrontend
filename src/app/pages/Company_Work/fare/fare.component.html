@@ -3,36 +3,24 @@
     <form #fareForm="ngForm" (ngSubmit)="onSubmit(fareForm)">
       
       <div class="form-group">
-        <label for="routeId">Route</label>
-        <select id="routeId" class="form-control" name="routeId" [(ngModel)]="fareData.routeId" required>
-          <option *ngFor="let route of routes" [value]="route.routeId">{{ route.routeId }}</option>
+        <label for="busRouteId">Route</label>
+        <select id="busRouteId" class="form-control" name="busRouteId" [(ngModel)]="fareData.busRouteId" required>
+          <option *ngFor="let route of busRoutes" [value]="route.id">{{ route.id }}</option>
         </select>
       </div>
-  
-      <div class="form-group">
-        <label for="sourceStopId">Source Stop</label>
-        <select id="sourceStopId" class="form-control" name="sourceStopId" [(ngModel)]="fareData.sourceStopId" required>
-          <option *ngFor="let stop of busStops" [value]="stop.stopId">{{ stop.name }}</option>
-        </select>
-      </div>
-  
-      <div class="form-group">
-        <label for="destinationStopId">Destination Stop</label>
-        <select id="destinationStopId" class="form-control" name="destinationStopId" [(ngModel)]="fareData.destinationStopId" required>
-          <option *ngFor="let stop of busStops" [value]="stop.stopId">{{ stop.name }}</option>
-        </select>
-      </div>
-  
+      
       <div class="form-group">
         <label for="busId">Bus</label>
         <select id="busId" class="form-control" name="busId" [(ngModel)]="fareData.busId" required>
           <option *ngFor="let bus of buses" [value]="bus.busId">{{ bus.busName }}</option>
         </select>
       </div>
+      
   
       <div class="form-group">
         <label for="fare">Fare Amount</label>
-        <input type="number" id="fare" class="form-control" name="fare" [(ngModel)]="fareData.fare" required placeholder="Enter fare amount" />
+        <input type="number" id="fare" class="form-control" 
+        name="fare" [(ngModel)]="fareData.fare" required placeholder="Enter fare amount" />
       </div>
   
       <button type="submit" class="btn btn-primary mt-3" [disabled]="!fareForm.valid">Submit</button>

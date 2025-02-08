@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { VehicleService } from '../../../service/vehicle.service';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vehicle',
@@ -26,7 +28,7 @@ export class VehicleComponent {
     img: null
   };
 
-  constructor(private vehicleService: VehicleService, private http: HttpClient) {}
+  constructor(private vehicleService: VehicleService, private route:Router) {}
 
   onFileChange(event: any) {
     const file = event.target.files[0];
@@ -76,9 +78,16 @@ export class VehicleComponent {
         (response: any) => {
           console.log('Vehicle added successfully:', response);
           if (response?.message) {
-            alert(response.message);
+        
           } else {
-            alert('Vehicle added successfully!');
+            Swal.fire({
+              title: 'Success!',
+              text: 'Vehicle added successfully.',
+              icon: 'success',
+              confirmButtonText: 'OK'
+            }).then(() => {
+            this.route.navigate(['companyFirstView'],{ queryParams: { userId: currentUserId } }); 
+            });
           }
         },
         error => {

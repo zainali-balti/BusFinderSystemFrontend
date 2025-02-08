@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FareService } from '../../../service/fare.service';
 import { BusesService } from '../../../service/buses.service';
-import { BusStopsService } from '../../../service/bus-stops.service';
 import { RouteService } from '../../../service/route.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-fare',
@@ -17,53 +17,38 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './fare.component.css'
 })
 export class FareComponent {
-  routes: any[] = [];
-  busStops: any[] = [];
+  busRoutes: any[] = [];
   buses: any[] = [];
   fareData = {
-    routeId: '',
-    sourceStopId: '',
-    destinationStopId: '',
+    busRouteId: '',
     busId: '',
     fare: null,
   };
   busId: string | null = null;
-  stopId: string | null = null;
-  routeId: string | null = null;
+  busRouteId: string | null = null;
 
   constructor(
     private fareService: FareService,
     private busService: BusesService,
-    private busStopService: BusStopsService,
     private routeService: RouteService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
     this.activatedRoute.params.subscribe(params => {
       this.busId = params['busId'];
-      this.stopId = params['stopId'];
-      this.routeId = params['routeId'];
+      this.busRouteId = params['busRouteId'];
 
-      console.log('Params:', { busId: this.busId, stopId: this.stopId, routeId: this.routeId });
+      console.log('Params:', { busId: this.busId,
+         busRouteId: this.busRouteId });
 
       if (this.busId) this.loadBuses(this.busId);
-      if (this.stopId) this.loadBusStops();
-      if (this.routeId) this.loadRoutes(this.routeId);
+      if (this.busRouteId) this.loadRoutes(this.busRouteId);
     });
   }
-
-  // ✅ Ensure API response is an array
-  loadRoutes(routeId: string) {
-    this.routeService.getRoute(routeId).subscribe((response: any) => {
+  loadRoutes(busRouteId: string) {
+    this.routeService.getRoute(busRouteId).subscribe((response: any) => {
       console.log('Routes Response:', response);
-      this.routes = Array.isArray(response) ? response : [response];
-    });
-  }
-
-  loadBusStops() {
-    this.busStopService.getBusStops().subscribe((response: any) => {
-      console.log('Bus Stops Response:', response);
-      this.busStops = Array.isArray(response) ? response : [response];
+      this.busRoutes = Array.isArray(response) ? response : [response];
     });
   }
 
@@ -76,12 +61,20 @@ export class FareComponent {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      console.log('Form Data:', this.fareData);
+      console.log('Fare Data before submitting:', this.fareData); 
       this.fareService.addFares(this.fareData).subscribe(
         (response: any) => {
-          alert('Fare added successfully!');
-          this.router.navigate(['/fares']);
-        },
+          const busId = response?.busId ?? response?.data?.busId;
+          console.log('🔄 Redirecting to:', `/fare-details/${busId}`);
+          Swal.fire({
+                                title: 'Success!',
+                                text: 'Bus created successfully.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                              }).then(() => {
+                                this.router.navigate(['/fare-details', response.busId]);
+                              });
+  },
         (error) => {
           console.error('Error adding fare:', error);
           alert('Failed to add fare. Please try again.');
@@ -91,5 +84,6 @@ export class FareComponent {
       alert('Please fill out the form correctly.');
     }
   }
+  
 }
 

@@ -9,7 +9,7 @@ import baseUrl from './Url';
 export class BusesService {
   constructor(private http: HttpClient) {}
 
-  addBus(formData: FormData, userId: string): Observable<any> {
+  addBus(formData: FormData): Observable<any> {
     const token = localStorage.getItem('token');
     if (!token) {
       throw new Error('User is not authenticated');
@@ -18,7 +18,7 @@ export class BusesService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.post(`${baseUrl}/api/bus/add/${userId}`, formData, { headers });
+    return this.http.post(`${baseUrl}/api/bus/add`, formData, { headers });
   }
   getBus(busId:String): Observable<any> {
     const token = localStorage.getItem('token');
@@ -30,8 +30,5 @@ export class BusesService {
     });
 
     return this.http.get(`${baseUrl}/api/bus/all/${busId}`, { headers });
-  }
-  private getCurrentUser(): any {
-    return JSON.parse(localStorage.getItem('user') || '{}');
   }
 }

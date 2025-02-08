@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-login',
   imports: [
@@ -37,9 +39,26 @@ export class LoginComponent {
                 const role = this.loginService.getUserRole();
                 console.log('User role:', role);
                 if (role == "COMPANY") {
-                  this.route.navigate(['bus']); 
+                  Swal.fire({
+                                title: 'Success!',
+                                text: 'Authentication successfully For Company.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                              }).then(() => {
+                              this.route.navigate(['companyFirstView'],{ queryParams: { userId: data.userId } }); 
+                              });
+                  
                 } else if (role == "CUSTOMER") {
-                  this.route.navigate(['bus']);
+                  Swal.fire({
+                    title: 'Success!',
+                    text: 'Authentication successfully For Customer.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                  }).then(() => {
+                  this.route.navigate(['firstView'],{ queryParams: { userId: data.userId } });
+                  });
+                  
+                  console.log(data.userId)
                 } else {
                   this.loginService.loggedOut();
                   console.error('Unknown user role:', role);
