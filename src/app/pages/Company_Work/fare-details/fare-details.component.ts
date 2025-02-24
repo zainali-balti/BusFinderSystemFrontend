@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FareService } from '../../../service/fare.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-fare-details',
@@ -16,12 +17,16 @@ import { CommonModule } from '@angular/common';
 export class FareDetailsComponent {
   fares: any[] = [];  
   busId: number | null = null;
+  userId: number | null = null;
 
-  constructor(private fareService: FareService, private activatedRoute: ActivatedRoute) {}
+  constructor(private fareService: FareService,
+     private activatedRoute: ActivatedRoute,
+    private router:Router) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.busId = params['busId'];
+      this.userId = params['userId'];
       console.log('Bus ID: ', this.busId);
       if (this.busId) {
         this.getFaresByBusId(this.busId);
@@ -43,6 +48,26 @@ export class FareDetailsComponent {
         this.fares = []; 
       }
     );
+  }
+  addMoreRoutes(){
+       Swal.fire({
+          title: 'Success!',
+          text: 'You are being redirected to the Bus Route page.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          this.router.navigate(['/route',this.busId,this.userId]);
+        });
+  }
+  goBackToHome(){
+    Swal.fire({
+      title: 'Success!',
+      text: 'You are being redirected to the Company dashboard.',
+      icon: 'success',
+      confirmButtonText: 'OK'
+    }).then(() => {
+      this.router.navigate(['/companyFirstView'],{ queryParams: { userId: this.userId } });
+    });
   }
   
 }

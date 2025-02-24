@@ -1,0 +1,58 @@
+<div class="container mt-4">
+    <h2 class="text-center mb-4">My Vehicles</h2>
+
+    <div class="row justify-content-center">
+        <div *ngFor="let vehicles of displayedVehicles" class="col-12 mb-4">
+            <div class="card shadow-lg" (click)="selectVehicle(vehicles.id)">
+                <div class="row g-0">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <img *ngIf="vehicles.returnedImg" [src]="'data:image/png;base64,' + 
+                        vehicles.returnedImg" class="img-fluid rounded-start" alt="vehicles Image">
+                        <span *ngIf="!vehicles.returnedImg" class="text-muted">No Image</span>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ vehicles.vehicleName }}</h5>
+
+                            <div class="d-flex flex-wrap gap-2">
+                                <button class="btn btn-outline-primary" disabled>
+                                    <strong>Owner Name:</strong> {{ vehicles.ownerName }}
+                                </button>
+                                <button class="btn btn-outline-primary" disabled>
+                                    <strong>Vehcile ModelNo:</strong> {{ vehicles.modelNo }}
+                                </button>
+                                <button class="btn btn-outline-secondary" disabled>
+                                    <strong>Vehcile EngineNo:</strong> {{ vehicles.engineNo }}
+                                </button>
+                                <button class="btn btn-outline-success" disabled>
+                                    <strong>Color:</strong> {{ vehicles.color }}
+                                </button>
+                                <button class="btn btn-outline-success" disabled>
+                                    <strong>Price:</strong> {{ vehicles.price }}
+                                </button>
+                                <button class="btn btn-outline-success" disabled>
+                                    <strong>Total Seats:</strong> {{ vehicles.totalSeats }}
+                                </button>
+                                <button class="btn btn-outline-success" disabled>
+                                    <strong>Booking Status:</strong> {{ vehicles.booked }}
+                                </button>
+                            </div>
+
+                            <!-- Add Update and Delete buttons -->
+                            <div class="d-flex justify-content-end gap-2 mt-3">
+                                <!-- <button class="btn btn-warning" (click)="updateVehicle(vehicles.id)">Update</button> -->
+                                <button class="btn btn-danger" (click)="deleteVehicle(vehicles.id)">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p *ngIf="vehicles.length === 0" class="text-center text-muted mt-3">No Vehicles found for this user.</p>
+
+    <div *ngIf="!allVehiclesDisplayed" class="text-center mt-4">
+        <button class="btn btn-info" (click)="loadMoreBuses()">Show More</button>
+    </div>
+</div>

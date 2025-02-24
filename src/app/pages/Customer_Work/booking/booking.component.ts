@@ -3,6 +3,7 @@ import { VehicleService } from '../../../service/vehicle.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-booking',
@@ -41,8 +42,12 @@ export class BookingComponent {
       },
       (error) => {
         console.error('Error fetching vehicles:', error);
-        alert('Failed to fetch vehicles. Please try again.');
-      }
+          Swal.fire({
+            title: 'Error!',
+            text: 'Failed to Booked Bus.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });      }
     );
 }
 

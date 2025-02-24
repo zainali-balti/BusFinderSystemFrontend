@@ -18,6 +18,7 @@ import Swal from 'sweetalert2';
 })
 export class RouteComponent {
   busId: string | null = null;
+  userId: string | null = null;
   busStops: any[] = [];
   routes: any[] = [];
   busRoute = {
@@ -36,6 +37,7 @@ export class RouteComponent {
   ) {
     this.rout.params.subscribe(params => {
       this.busId = params['busId'];
+      this.userId = params['userId'];
     });
   }
 
@@ -76,7 +78,12 @@ export class RouteComponent {
       !this.busRoute.destinationStopId ||
       !this.busRoute.sequence
     ) {
-      alert('Please fill all fields!');
+       Swal.fire({
+                  title: 'All Fields',
+                  text: 'Please Fill All Fields.',
+                  icon: 'error',
+                  confirmButtonText: 'OK'
+                });
       return;
     }
   
@@ -93,7 +100,6 @@ export class RouteComponent {
         console.log('Full API Response:', response);
         if (!response || !response.routeId) {
           console.error('Invalid API response:', response);
-          alert('Failed to retrieve route data. Please check the backend.');
           return;
         }
         this.busRoute.busRouteId = response.routeId;
@@ -105,7 +111,7 @@ export class RouteComponent {
                         icon: 'success',
                         confirmButtonText: 'OK'
                       }).then(() => {
-                        this.router.navigate(['/schedule', this.busId, this.busRoute.busRouteId]);
+                        this.router.navigate(['/schedule', this.busId, this.busRoute.busRouteId,this.userId]);
                       });
         } else {
           alert('Route ID is missing. Please check API response.');
@@ -113,7 +119,12 @@ export class RouteComponent {
       },
       (error) => {
         console.error('Error adding bus route:', error);
-        alert('Failed to add bus route. Please try again.');
+         Swal.fire({
+                    title: 'Error!',
+                    text: 'Failed to add Bus Routes.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                  });
       }
     );
   }

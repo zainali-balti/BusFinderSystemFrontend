@@ -1,0 +1,10 @@
+.bus-image {
+    object-fit: cover;
+    border: 5px solid #ddd; /* Optional: Adds border around the image */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds shadow around the image */
+  }
+  
+  input[type="file"] {
+    margin-top: 10px;
+  }
+  

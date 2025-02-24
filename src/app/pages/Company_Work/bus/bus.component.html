@@ -1,7 +1,8 @@
-<div class="container mt-4">
+<div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
       <div class="p-4 bg-white rounded shadow">
+        <h2 class="text-center">Add Buses</h2>
         <!-- Image Preview -->
         <div class="text-center mb-4">
           <img 
@@ -85,13 +86,15 @@
           </div>
 
           <!-- Submit Button -->
+          <div class="d-flex justify-content-center">
           <button 
             type="submit" 
-            class="btn btn-primary w-100"
+            class="btn btn-primary w-50"
             [disabled]="!busForm.form.valid || !bus.userId"
           >
             Add Bus
           </button>
+          </div>
         </form>
       </div>
     </div>

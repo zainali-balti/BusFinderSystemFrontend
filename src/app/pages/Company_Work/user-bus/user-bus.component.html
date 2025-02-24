@@ -1,0 +1,48 @@
+<div class="container mt-4">
+    <h2 class="text-center mb-4">My Buses</h2>
+
+    <div class="row justify-content-center">
+        <div *ngFor="let bus of displayedBuses" class="col-12 mb-4">
+            <div class="card shadow-lg" (click)="selectBus(bus.busId)">
+                <div class="row g-0">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <img *ngIf="bus.img" [src]="'data:image/png;base64,' + bus.img" class="img-fluid rounded-start" alt="Bus Image">
+                        <span *ngIf="!bus.img" class="text-muted">No Image</span>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ bus.busName }}</h5>
+
+                            <div class="d-flex flex-wrap gap-2">
+                                <button class="btn btn-outline-primary" disabled>
+                                    <strong>Bus ID:</strong> {{ bus.busId }}
+                                </button>
+                                <button class="btn btn-outline-secondary" disabled>
+                                    <strong>Bus Number:</strong> {{ bus.busNumber }}
+                                </button>
+                                <button class="btn btn-outline-success" disabled>
+                                    <strong>Capacity:</strong> {{ bus.capacity }}
+                                </button>
+                                <button class="btn btn-outline-danger" disabled>
+                                    <strong>Status:</strong> <span [ngClass]="{'text-success': bus.status === 'ACTIVE', 'text-danger': bus.status !== 'ACTIVE'}">{{ bus.status }}</span>
+                                </button>
+                            </div>
+
+                            <!-- Add Update and Delete buttons -->
+                            <div class="d-flex justify-content-end gap-2 mt-3">
+                                <button class="btn btn-warning" (click)="updateBus(bus.busId)">Update</button>
+                                <button class="btn btn-danger" (click)="deleteBus(bus.busId)">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p *ngIf="buses.length === 0" class="text-center text-muted mt-3">No buses found for this user.</p>
+
+    <div *ngIf="!allBusesDisplayed" class="text-center mt-4">
+        <button class="btn btn-info" (click)="loadMoreBuses()">Show More</button>
+    </div>
+</div>

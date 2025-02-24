@@ -85,7 +85,12 @@ export class CarBookingComponent {
 
   submitBooking() {
     if (!this.userId || !this.vehicleId) {
-      alert('User or Vehicle information is missing.');
+      Swal.fire({
+                 title: 'User And Vehicle!',
+                 text: 'Missing User And Vehicle Information.',
+                 icon: 'error',
+                 confirmButtonText: 'OK'
+               });
       return;
     }
   
@@ -110,7 +115,7 @@ export class CarBookingComponent {
                                    icon: 'success',
                                    confirmButtonText: 'OK'
                                  }).then(() => {
-                                  this.router.navigate(['/booking-history']);
+                                  this.router.navigate(['/booking-history'], { queryParams: { userId: this.userId } });
                                  });
         } else {
           alert('Unexpected response from server.');
@@ -118,8 +123,12 @@ export class CarBookingComponent {
       },
       (error) => {
         console.error('Booking failed:', error);
-        alert('Failed to create booking. Please try again.');
-      }
+           Swal.fire({
+            title: 'Error!',
+            text: 'Failed to Booked vehicle.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });      }
     );
   }
   

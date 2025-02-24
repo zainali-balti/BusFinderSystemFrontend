@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { WalletService } from '../../../service/wallet.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BusBookingComponent } from '../bus-booking/bus-booking.component';
 import { BusBookingService } from '../../../service/bus-booking.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-transaction',
@@ -15,6 +15,8 @@ import { BusBookingService } from '../../../service/bus-booking.service';
   templateUrl: './transaction.component.html',
   styleUrl: './transaction.component.css'
 })
+
+
 export class TransactionComponent {
   userId: number | null = null;
   bookingId: number | null = null;
@@ -27,7 +29,6 @@ export class TransactionComponent {
 
   constructor(
     private route: ActivatedRoute, 
-    private router: Router, 
     private walletSerive: WalletService,
     private busBookingService: BusBookingService
   ) {}
@@ -50,6 +51,12 @@ export class TransactionComponent {
       },
       (error) => {
         console.error('Error fetching wallet:', error); 
+        Swal.fire({
+          title: 'Error!',
+          text: 'Failed to fetch wallet details.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     );
   }
@@ -65,6 +72,12 @@ export class TransactionComponent {
       },
       (error) => {
         console.error('Error fetching transactions:', error);
+        Swal.fire({
+          title: 'Error!',
+          text: 'Failed to fetch transaction history.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     );
   }
@@ -75,19 +88,40 @@ export class TransactionComponent {
       return;
     }
 
-    if (confirm(`Are you sure you want to delete booking with ID ${bookingId}?`)) {
-      this.busBookingService.deleteBusBooking(bookingId).subscribe(
-        () => {
-          console.log(`Booking ${bookingId} deleted successfully`);
-          alert(`Booking ${bookingId} deleted successfully`);
-        },
-        (error) => {
-          console.error('Error deleting booking:', error);
-        }
-      );
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Do you really want to delete booking with ID ${bookingId}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.busBookingService.deleteBusBooking(bookingId).subscribe(
+          () => {
+            console.log(`Booking ${bookingId} deleted successfully`);
+            Swal.fire({
+              title: 'Deleted!',
+              text: `Booking ${bookingId} has been deleted successfully.`,
+              icon: 'success',
+              confirmButtonText: 'OK'
+            });
+          },
+          (error) => {
+            console.error('Error deleting booking:', error);
+            Swal.fire({
+              title: 'Error!',
+              text: 'Failed to delete the booking. Please try again.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
+          }
+        );
+      }
+    });
   }
 }
+
 
 
 

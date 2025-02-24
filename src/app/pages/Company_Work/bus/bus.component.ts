@@ -67,7 +67,12 @@ export class BusComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (form.valid) {
       if (!this.bus.userId) { 
-        alert('User ID is missing!');
+        Swal.fire({
+                   title: 'User ID!',
+                   text: 'Failed to Retrive User ID.',
+                   icon: 'error',
+                   confirmButtonText: 'OK'
+                 });
         return;
       }
       
@@ -91,12 +96,17 @@ export class BusComponent implements OnInit {
                         icon: 'success',
                         confirmButtonText: 'OK'
                       }).then(() => {
-                        this.router.navigate(['/route', response.busId]);
+                        this.router.navigate(['/route', response.busId,response.userId]);
                       });
         },
         error => {
           console.error('Error adding bus:', error);
-          alert('Failed to add bus. Please try again.');
+           Swal.fire({
+                      title: 'Error!',
+                      text: 'Failed to add Bus. Please Enter a Valid Bus Number.',
+                      icon: 'error',
+                      confirmButtonText: 'OK'
+                    });
         }
       );      
     }

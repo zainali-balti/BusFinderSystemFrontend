@@ -1,0 +1,60 @@
+/* Container for limiting the width */
+.container {
+    max-width: 800px;
+  }
+  
+  /* Image styling with border radius */
+  img {
+    border-radius: 10px;
+    transition: transform 0.3s ease; /* Animation for image scaling */
+  }
+  
+  /* Add hover effect to scale the image */
+  img:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Styling for the table cells */
+  .table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  /* Card animation for showing buses */
+  .card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  /* On bus load, animate cards into view */
+  .card.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Styling for the "Show More" button */
+  .btn-info {
+    transition: transform 0.3s ease;
+    transform: scale(1);
+  }
+  
+  /* Hover effect for "Show More" button */
+  .btn-info:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Add smooth transition for the "Show More" button */
+  .show-more-btn {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Show the "Show More" button when more buses are available */
+  .show-more-btn.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  

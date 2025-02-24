@@ -1,0 +1,35 @@
+<div class="container mt-4">
+    <h2 class="text-center mb-4"><i class="fas fa-history"></i> Travelling History</h2>
+
+    <div *ngIf="travelHistory.length > 0; else noHistory">
+        <div class="row">
+            <div class="col-md-6" *ngFor="let trip of travelHistory">
+                <div class="card shadow-lg mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-bus text-primary"></i> Booking ID: {{ trip.bookingId }}
+                        </h5>
+                        <p class="card-text"><i class="fas fa-calendar-alt"></i> Date: {{ trip.bookingTime | date:'medium' }}</p>
+                        <p class="card-text"><i class="fas fa-tag"></i> Fare ID: {{ trip.fareId }}</p>
+                        <p class="card-text"><i class="fas fa-money-bill-wave text-success"></i> Total Fare: ${{ trip.totalFare }}</p>
+                        <p class="card-text">
+                            <i class="fas" [ngClass]="{
+                                'fa-check-circle text-success': trip.status === 'CONFIRMED',
+                                'fa-exclamation-circle text-warning': trip.status === 'PENDING',
+                                'fa-times-circle text-danger': trip.status === 'CANCELLED'
+                            }"></i> Status: <strong>{{ trip.status }}</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- If no travel history -->
+    <ng-template #noHistory>
+        <div class="alert alert-warning text-center">
+            <i class="fas fa-exclamation-circle"></i> No travel history found.
+        </div>
+    </ng-template>
+</div>
+

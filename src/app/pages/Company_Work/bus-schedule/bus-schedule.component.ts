@@ -31,6 +31,7 @@ export class BusScheduleComponent {
   buses: any[] = [];
   busRoute: any[]= [];
   busId: string | null = null;
+  userId: string | null = null;
   busRouteId: string | null = null;
 
   constructor(
@@ -42,9 +43,11 @@ export class BusScheduleComponent {
   ) {
     this.rout.params.subscribe(params => {
       this.busId = params['busId'];
+      this.userId = params['userId'];
       this.busRouteId = params['busRouteId'];
       console.log(this.busId);
       console.log(this.busRouteId);
+      console.log(this.userId);
       if (this.busId) {
         this.loadBuses(this.busId);
       }
@@ -91,24 +94,44 @@ onSubmit(form: NgForm) {
               confirmButtonText: 'OK'
             }).then(() => {
               if (this.scheduleData.busId && this.scheduleData.busRouteId && this.scheduleData.routeId) {
-                this.router.navigate(['/fare', this.scheduleData.busId, this.scheduleData.busRouteId]);
+                this.router.navigate(['/fare', this.scheduleData.busId, this.scheduleData.busRouteId,this.userId]);
               } else {
                 console.error('Navigation error: One or more required values are missing.');
-                alert('Failed to navigate. Some required values are missing.');
+                 Swal.fire({
+                            title: 'Error!',
+                            text: 'Some Fields are missing.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                          });
               }
             });
           } else {
             console.error('Error: Route ID is missing in API response.');
-            alert('Failed to retrieve Route ID. Please check backend response.');
+            Swal.fire({
+                       title: 'Route Id!',
+                       text: 'Route ID Not Found.',
+                       icon: 'error',
+                       confirmButtonText: 'OK'
+                     });
           }
         },
         (error) => {
           console.error('Error adding bus schedule:', error);
-          alert('Failed to add bus schedule. Please try again.');
+          Swal.fire({
+                     title: 'Error!',
+                     text: 'Failed to add Bus Schedule.',
+                     icon: 'error',
+                     confirmButtonText: 'OK'
+                   });
         }
       );
     } else {
-      alert('Bus ID, Route ID, or other required fields are missing.');
+      Swal.fire({
+                 title: 'Bus And Route Id!',
+                 text: 'Failed to add Bus Schedule.',
+                 icon: 'error',
+                 confirmButtonText: 'OK'
+               });
     }
   }
 }

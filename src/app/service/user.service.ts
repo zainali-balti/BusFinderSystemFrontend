@@ -25,4 +25,67 @@ export class UserService {
 
     return this.http.get(`${baseUrl}/api/customer/${userId}`, { headers });
   }
+  getAllVehicles(): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${baseUrl}/api/customer/all/vehicles`, { headers });
+  }
+  updatedVehicle(vehicleId: number, userId: number, formData: FormData): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.put(`${baseUrl}/api/company/update/${vehicleId}/${userId}`, formData);
+  }
+  deleteVehicles(vehicleId:number,userId:number): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.delete(`${baseUrl}/api/company/delete/${vehicleId}/${userId}`, { headers });
+  }
+  getUser(): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${baseUrl}/api/customer/all`, { headers });
+  }
+  getVehicle(vehicleId:number): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${baseUrl}/api/company/${vehicleId}`, { headers });
+  }
+  getAllUsersDetails(): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${baseUrl}/all`, { headers });
+  }
 }

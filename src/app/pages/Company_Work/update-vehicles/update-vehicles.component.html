@@ -1,0 +1,142 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="p-4 bg-white rounded shadow">
+          <h2 class="text-center">Update Vehicle</h2>
+          <div class="text-center mb-4">
+            <img *ngIf="vehicle.returnedImg"
+              [src]="'data:image/jpeg;base64,' + vehicle.returnedImg"  
+              alt="vehicle Image" 
+              class="rounded-circle bus-image border border-primary p-1" 
+              width="150" 
+              height="150"
+            />
+          </div>
+          
+  
+          <form (ngSubmit)="onSubmit(vehicleForm)" #vehicleForm="ngForm">
+            <!-- Vehicle Name -->
+            <div class="mb-3">
+              <label for="vehicleName" class="form-label">Vehicle Name</label>
+              <input
+                type="text"
+                id="vehicleName"
+                class="form-control"
+                [(ngModel)]="vehicle.vehicleName"
+                name="vehicleName"
+                required
+              />
+            </div>
+  
+            <!-- Vehicle Engine No -->
+            <div class="mb-3">
+              <label for="engineNo" class="form-label">Engine Number</label>
+              <input
+                type="text"
+                id="engineNo"
+                class="form-control"
+                [(ngModel)]="vehicle.engineNo"
+                name="engineNo"
+                required
+              />
+            </div>
+  
+            <!-- Vehicle Model No -->
+            <div class="mb-3">
+              <label for="modelNo" class="form-label">Model Number</label>
+              <input
+                type="text"
+                id="modelNo"
+                class="form-control"
+                [(ngModel)]="vehicle.modelNo"
+                name="modelNo"
+                required
+              />
+            </div>
+  
+            <!-- Vehicle Total Seats -->
+            <div class="mb-3">
+              <label for="totalSeats" class="form-label">Total Seats</label>
+              <input
+                type="number"
+                id="totalSeats"
+                class="form-control"
+                [(ngModel)]="vehicle.totalSeats"
+                name="totalSeats"
+                required
+              />
+            </div>
+  
+            <!-- Vehicle Description -->
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea
+                id="description"
+                class="form-control"
+                [(ngModel)]="vehicle.description"
+                name="description"
+                rows="3"
+                required
+              ></textarea>
+            </div>
+  
+            <!-- Vehicle Price -->
+            <div class="mb-3">
+              <label for="price" class="form-label">Price</label>
+              <input
+                type="number"
+                id="price"
+                class="form-control"
+                [(ngModel)]="vehicle.price"
+                name="price"
+                required
+              />
+            </div>
+  
+            <!-- Vehicle Distance -->
+            <div class="mb-3">
+              <label for="distance" class="form-label">Distance</label>
+              <input
+                type="number"
+                id="distance"
+                class="form-control"
+                [(ngModel)]="vehicle.distance"
+                name="distance"
+                required
+              />
+            </div>
+  
+            <!-- Vehicle Image Upload -->
+            <div class="mb-3">
+              <label for="img" class="form-label">Vehicle Image</label>
+              <input
+                type="file"
+                id="img"
+                class="form-control"
+                (change)="onFileChange($event)"
+                name="img"
+              />
+            </div>
+  
+            <!-- Hidden User ID -->
+            <input type="hidden" [(ngModel)]="vehicle.ownerId" name="ownerId" />
+            <div *ngIf="!vehicle.ownerId" class="alert alert-danger text-center">
+              User ID is missing! Please log in.
+            </div>
+  
+            <!-- Submit Button -->
+            <div class="d-flex justify-content-center">
+              <button 
+                type="submit" 
+                class="btn btn-primary w-50"
+                [disabled]="!vehicleForm.form.valid || !vehicle.ownerId"
+              >
+                Update Vehicle
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

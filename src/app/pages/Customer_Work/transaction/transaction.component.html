@@ -1,18 +1,31 @@
-<div class="container mt-4">
-  <h2>Wallet Details</h2>
-  <div *ngIf="walletDto.walletId">
-    <p><strong>Wallet ID:</strong> {{ walletDto.walletId }}</p>
-    <p><strong>Balance:</strong> ${{ walletDto.balance }}</p>
+<div class="container mt-5">
+  <div class="container text-center mt-5">
+    <h2 class="mb-4 text-primary">Wallet Details</h2>
+    <div *ngIf="walletDto.walletId" class="card shadow-lg p-4">
+      <h4 class="card-title text-success">Your Wallet</h4>
+      <table class="table table-bordered table-striped">
+        <tbody>
+          <tr>
+            <td><strong>Wallet ID:</strong></td>
+            <td>{{ walletDto.walletId }}</td>
+          </tr>
+          <tr>
+            <td><strong>Balance:</strong></td>
+            <td class="text-success">${{ walletDto.balance }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="!walletDto.walletId" class="alert alert-info">
+      <p>Loading wallet details...</p>
+    </div>
   </div>
-  <div *ngIf="!walletDto.walletId">
-    <p>Loading wallet details...</p>
-  </div>
+  
 
-  <h2 class="mt-4">Transaction History</h2>
+  <h2 class="mt-4 mb-3 text-primary text-center">Transaction History</h2>
   <table class="table table-striped" *ngIf="transactions.length > 0">
     <thead>
       <tr>
-        <th>Transaction ID</th>
         <th>Amount</th>
         <th>Type</th>
         <th>Description</th>
@@ -21,8 +34,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let transaction of transactions">
-        <td>{{ transaction.transactionId }}</td>
-        <td>${{ transaction.amount }}</td>
+        <td>{{ transaction.amount | currency: 'PKR' }}</td>
         <td>{{ transaction.transactionType }}</td>
         <td>{{ transaction.description || 'N/A' }}</td>
         <td>{{ transaction.transactionTime ? (transaction.transactionTime | date:'short') : 'N/A' }}</td> 

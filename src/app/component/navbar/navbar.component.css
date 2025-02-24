@@ -1,0 +1,218 @@
+.navbar {
+    background: #EC0016;
+    padding: 0.8rem 2rem; 
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 100%; 
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; 
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    text-decoration: none;
+    font-size: 2.2rem; 
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    height: 4rem;
+    max-width: 100%;
+}
+
+ .logo img {
+    height: 4.5rem; 
+    width: 4.5rem; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 2px solid white; 
+}
+
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem; 
+    margin-top: 1rem;
+    flex-grow: 1; 
+}
+
+.search-box {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+    max-width: 500px; 
+}
+
+.search-box input {
+    padding: 0.6rem;
+    border: none;
+    border-radius: 4px;
+    flex: 1;
+    font-size: 1rem;
+}
+
+.search-box button {
+    padding: 0.6rem 1.2rem;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.search-box button:hover {
+    background: #444;
+}
+
+.main-links, .user-section {
+    display: flex;
+    gap: 2rem; 
+}
+
+.nav-item-container {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-item {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.nav-item:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.nav-item .fa-chevron-down {
+    font-size: 0.85em;
+    transition: transform 0.2s ease;
+    margin-left: 0.3rem;
+}
+
+.nav-item-container:hover .fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px; 
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1001;
+    margin-top: 0.3rem;
+    display: block;
+}
+
+.nav-item-container:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu a {
+    color: #333;
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+    font-size: 1rem;
+}
+
+.dropdown-menu a:hover {
+    background: #f5f5f5;
+    padding-left: 1.2rem;
+}
+
+.dropdown-menu a:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+@media (max-width: 1024px) {
+    .nav-links {
+        gap: 1.5rem;
+    }
+
+    .search-box {
+        max-width: 350px;
+    }
+
+    .main-links, .user-section {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-item-container {
+        width: 100%;
+    }
+
+    .main-links, .user-section {
+        gap: 0.5rem;
+        flex-direction: column;
+    }
+
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        background: rgba(0,0,0,0.1);
+        box-shadow: none;
+        margin-top: 0;
+        border-radius: 4px;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .nav-item-container:hover .dropdown-menu {
+        max-height: 400px;
+    }
+
+    .dropdown-menu a {
+        color: white;
+        padding: 0.6rem 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .dropdown-menu a:hover {
+        background: rgba(255,255,255,0.1);
+        color: white;
+    }
+}

@@ -1,88 +1,122 @@
-/* Container styling */
+/* General Container Styling */
 .container {
-    margin-top: 40px;
-    /* text-align: center; */
-    box-shadow: 0px 0px 30px -10px;
+    max-width: 600px; /* Centered and optimized width */
+    margin: 30px auto;
+    padding: 30px;
+    background: #ffffff; /* Clean white background */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
 }
 
-/* Image styling */
-.image img {
-    width: 100%;
-    max-width: 250px;
-    height: auto;
+/* Centering the row and form elements */
+.row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Rounded Image Styling */
+.rounded-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #EC0016;
+    margin-bottom: 10px;
+}
+
+/* Register Heading */
+h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #EC0016;
+    text-align: center;
     margin-bottom: 20px;
 }
 
-/* Form input styling */
-.input {
+/* Form Container */
+.form-container {
+    width: 100%;
+    padding: 25px;
+    border-radius: 10px;
+    background: #f8f9fa;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Fields */
+.input-icon {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon input,
+.input-icon select {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border-radius: 6px;
+    border: 1px solid #d0d6d9;
+    font-size: 16px;
+    background-color: #fff;
+    transition: 0.3s;
+}
+
+/* Input Focus Effect */
+.input-icon input:focus,
+.input-icon select:focus {
+    border-color: #EC0016;
+    background-color: #f8f9fa;
+}
+
+/* Input Icons */
+.input-icon i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #EC0016;
+}
+
+/* Error Messages */
+.error {
+    color: #EC0016;
+    font-size: 14px;
+    margin-top: 6px;
+    display: none;
+}
+
+.error.show {
+    display: block;
+}
+
+/* Submit Button */
+button {
     width: 100%;
     padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
     font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    background-color: #EC0016;
+    color: white;
+    transition: 0.3s;
+    margin-top: 15px;
+    cursor: pointer;
 }
 
-/* Error message styling */
-.error {
-    color: red;
-    font-size: 12px;
-    margin-top: -10px;
+button:hover {
+    background-color: #b50010;
 }
 
-/* Form container and button container for responsiveness */
-.form-container,
-.buttons {
-    margin: auto;
-}
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
 
-/* Button styling */
-.buttons button {
-    width: 100%;
-    margin: 10px 0;
-    height: 45px;
-    font-size: 16px;
-}
-
-/* Media Queries for Responsive Design */
-
-/* Mobile (max-width: 576px) - Full-width buttons */
-@media (max-width: 576px) {
     .form-container {
-        width: 100%;
-    }
-    
-    .buttons button {
-        width: 100%;
-        height: 45px;
-    }
-}
-
-/* Tablet (576px - 768px) - Slightly reduced width for form */
-@media (min-width: 576px) and (max-width: 768px) {
-    .form-container {
-        width: 80%;
-    }
-
-    .buttons button {
-        width: 85%;
-    }
-}
-
-/* Desktop (min-width: 768px) - Center the form and adjust buttons */
-@media (min-width: 768px) {
-    .form-container {
-        width: 50%;
-    }
-
-    .buttons button {
-        width: 48%;
-        height: 50px;
-        font-size: 18px;
-    }
-    
-    .buttons {
-        display: flex;
-        justify-content: space-between;
+        padding: 20px;
     }
 }

@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-5">
   <div class="row justify-content-center">
     <div *ngFor="let vehicle of vehicles" class="col-md-4 col-sm-6 mb-4">
       <div class="card shadow">
@@ -23,7 +23,11 @@
               <a href="#" (click)="toggleDescription(vehicle, $event)">Read Less</a>
             </span>
           </p>
-          <button class="btn btn-success w-100 mt-2" (click)="bookVehicle(vehicle.id)">Book Now</button>
+          <button class="btn btn-success w-100 mt-2"
+          [disabled]="vehicle.booked"
+          (click)="bookVehicle(vehicle.id)">
+    {{ vehicle.booked ? 'Booked' : 'Book Now' }}
+   </button>  
         </div>
       </div>
     </div>

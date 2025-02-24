@@ -1,1 +1,92 @@
-<p>navbar works!</p>
+<nav class="navbar">
+    <div class="navbar-brand">
+      <button class="menu-toggle" (click)="toggleMenu()">
+        <span [class.active]="isMenuOpen">☰</span>
+      </button>
+      <a href="/" class="logo">
+        <img src="/logo.png" alt="Rehnuma">
+        REHNUMA
+          </a>
+    </div>
+      <div class="main-links">
+        <div class="nav-item-container">
+          <a href="#" class="nav-item" (click)="toggleDropdown('Plan', $event)">
+            <i class="fa-solid fa-route"></i>
+            Plan your Route
+            <i class="fas fa-chevron-down ml-1"></i>
+          </a>
+          <div class="dropdown-menu" [class.show]="dropdowns['Plan']">
+            <a [routerLink]="['/busInfo']">Bus Info</a>
+            <a [routerLink]="['/indBusInfo']">Individual Bus Info</a>
+          </div>
+        </div>
+  
+        <div class="nav-item-container">
+          <a href="#" class="nav-item" (click)="toggleDropdown('Book', $event)">
+            <i class="fa-solid fa-car"></i>
+            Book Your Ride
+            <i class="fas fa-chevron-down ml-1"></i>
+          </a>
+          <div class="dropdown-menu" [class.show]="dropdowns['Book']">
+            <a [routerLink]="['/rentalInfo']">Rentals</a>
+            <a [routerLink]="['/vehicleInfo']">Vehicle Info</a>
+          </div>
+        </div>
+
+        <div class="nav-item-container">
+            <a href="#" class="nav-item" (click)="toggleDropdown('Card', $event)">
+                <i class="fa-solid fa-credit-card"></i>
+              Karachi Card
+              <i class="fas fa-chevron-down ml-1"></i>
+            </a>
+            <div class="dropdown-menu" [class.show]="dropdowns['Card']">
+              <a [routerLink]="['/karachi']">Buy Karachi Card</a>
+              <a [routerLink]="['/cardRecharge']">Recharge Your Card</a>
+            </div>
+          </div>
+    
+          <div class="nav-item-container">
+            <a href="#" class="nav-item" (click)="toggleDropdown('Fleet', $event)">
+                <i class="fa-solid fa-bus"></i>
+              Bus Fleet
+              <i class="fas fa-chevron-down ml-1"></i>
+            </a>
+            <div class="dropdown-menu" [class.show]="dropdowns['Fleet']">
+              <a [routerLink]="['/peopleBus']">People Bus Service</a>
+              <a [routerLink]="['/localBus']">Local Bus</a>
+              <a [routerLink]="['/brt']">BRT</a>
+            </div>
+          </div>
+          <div class="nav-item-container">
+            <a href="#" class="nav-item" (click)="toggleDropdown('vehicle', $event)">
+                <i class="fa-solid fa-key"></i>
+              Rent Your Vehicle
+              <i class="fas fa-chevron-down ml-1"></i>
+            </a>
+            <div class="dropdown-menu" [class.show]="dropdowns['vehicle']">
+              <a [routerLink]="['/signup']">Create Your account</a>
+            </div>
+          </div>
+          <div class="nav-item-container">
+            <a href="#" class="nav-item" (click)="toggleDropdown('renter', $event)">
+                <i class="fa-solid fa-truck-moving"></i>
+              Renter Mode
+              <i class="fas fa-chevron-down ml-1"></i>
+            </a>
+            <div class="dropdown-menu" [class.show]="dropdowns['renter']">
+              <a [routerLink]="['/about']">View About Us</a>
+            </div>
+          </div>
+          <div class="nav-item-container">
+            <a href="#" class="nav-item" (click)="toggleDropdown('logout', $event)">
+                <i class="fa-solid fa-sign-out-alt"></i>
+                Logout
+                <i class="fas fa-chevron-down ml-1"></i>
+            </a>
+            <div class="dropdown-menu" [class.show]="dropdowns['logout']">
+                <a  (click)="logout()">Logout</a>
+            </div>
+        </div>
+      </div>
+  </nav>
+  

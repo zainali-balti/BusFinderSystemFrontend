@@ -1,5 +1,7 @@
-<div class="container mt-4">
-    <h2>Add Fare</h2>
+<div class="container mt-5 ">
+  <div class="row justify-content-center"> 
+  <div class="col-md-8 col-lg-6">
+    <h2 class="text-center">Add Fare</h2>
     <form #fareForm="ngForm" (ngSubmit)="onSubmit(fareForm)">
       
       <div class="form-group">
@@ -22,8 +24,12 @@
         <input type="number" id="fare" class="form-control" 
         name="fare" [(ngModel)]="fareData.fare" required placeholder="Enter fare amount" />
       </div>
-  
-      <button type="submit" class="btn btn-primary mt-3" [disabled]="!fareForm.valid">Submit</button>
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary mt-5 w-50" [disabled]="!fareForm.valid">Submit</button>
+      </div>
+      
     </form>
+  </div>
+  </div>
   </div>
   

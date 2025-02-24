@@ -1,0 +1,101 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="p-4 bg-white rounded shadow">
+          <h2 class="text-center">Update Bus</h2>
+          <!-- Image Preview -->
+          <div class="text-center mb-4">
+            <img 
+              *ngIf="bus.img" 
+              [src]="bus.img" 
+              alt="Bus Image" 
+              class="rounded-circle bus-image border border-primary p-1" 
+              width="150" 
+              height="150"
+            />
+          </div>
+  
+          <form (ngSubmit)="onSubmit(busForm)" #busForm="ngForm">
+            <!-- Bus Name -->
+            <div class="mb-3">
+              <label for="busName" class="form-label">Bus Name</label>
+              <input
+                type="text"
+                id="busName"
+                class="form-control"
+                [(ngModel)]="bus.busName"
+                name="busName"
+                required
+              />
+            </div>
+  
+            <!-- Bus Number -->
+            <div class="mb-3">
+              <label for="busNumber" class="form-label">Bus Number</label>
+              <input
+                type="text"
+                id="busNumber"
+                class="form-control"
+                [(ngModel)]="bus.busNumber"
+                name="busNumber"
+                required
+              />
+            </div>
+  
+            <!-- Bus Capacity -->
+            <div class="mb-3">
+              <label for="capacity" class="form-label">Capacity</label>
+              <input
+                type="number"
+                id="capacity"
+                class="form-control"
+                [(ngModel)]="bus.capacity"
+                name="capacity"
+                required
+              />
+            </div>
+  
+            <div class="mb-3">
+              <label for="status" class="form-label">Bus Status</label>
+              <select id="status" class="form-control" [(ngModel)]="bus.status" name="status" required>
+                <option value="" disabled>Select Status</option>
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="INACTIVE">INACTIVE</option>
+              </select>
+            </div>
+            
+  
+            <!-- Image Upload -->
+            <div class="mb-3">
+              <label for="img" class="form-label">Bus Image</label>
+              <input
+                type="file"
+                id="img"
+                class="form-control"
+                (change)="onFileChange($event)"
+                name="img"
+              />
+            </div>
+  
+            <!-- Hidden Field for User ID -->
+            <input type="hidden" [(ngModel)]="bus.userId" name="userId" />
+            <div *ngIf="!bus.userId" class="alert alert-danger text-center">
+              User ID is missing! Please log in.
+            </div>
+  
+            <!-- Submit Button -->
+            <div class="d-flex justify-content-center">
+            <button 
+              type="submit" 
+              class="btn btn-primary w-50"
+              [disabled]="!busForm.form.valid || !bus.userId"
+            >
+              Update Bus
+            </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

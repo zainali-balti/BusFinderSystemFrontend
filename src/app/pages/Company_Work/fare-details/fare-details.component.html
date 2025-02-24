@@ -1,4 +1,4 @@
-<div *ngIf="fares.length > 0">
+<div class="container mt-5 col-md-6" *ngIf="fares.length > 0">
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
@@ -13,12 +13,16 @@
         <td>{{ fare.fareId }}</td>
         <td>{{ fare.busRouteId }}</td>
         <td>{{ fare.busId }}</td>
-        <td>{{ fare.fare | currency: 'USD': true }}</td> 
+        <td>{{ fare.fare | currency:'PKR' }}</td> 
       </tr>
     </tbody>
   </table>
 </div>
-
+<!-- Buttons Section -->
+<div class="container col-md-4 d-flex justify-content-between mt-3">
+  <button class="btn btn-primary" (click)="addMoreRoutes()">Add More Routes</button>
+  <button class="btn btn-secondary" (click)="goBackToHome()">Back to Home</button>
+</div>
 <div *ngIf="fares.length === 0">
   <p class="text-center text-muted">No fares found for the given bus.</p>
 </div>

@@ -55,11 +55,14 @@ export class VehicleComponent {
     if (form.valid) {
       const currentUserId = this.getUserId();
       if (!currentUserId) {
-        alert('User is not authenticated!');
+        Swal.fire({
+          title: 'Authentication Error',
+          text: 'User is not authenticated!',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
         return;
       }
-
-
       const formData = new FormData();
       formData.append('vehicleName', this.vehicle.vehicleName);
       formData.append('color', this.vehicle.color);
@@ -92,7 +95,12 @@ export class VehicleComponent {
         },
         error => {
           console.error('Error adding vehicle:', error);
-          alert('Failed to add vehicle. Please try again.');
+          Swal.fire({
+            title: 'Error!',
+            text: 'Failed to add vehicle. Please Enter a Valid Engine and Model Number.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
         }
       );
     }

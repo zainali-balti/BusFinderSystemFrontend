@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BusStopsService } from '../../../service/bus-stops.service';
 import { FareService } from '../../../service/fare.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BusesService } from '../../../service/buses.service';
 @Component({
   selector: 'app-customer',
   imports: [
@@ -26,7 +27,8 @@ export class CustomerComponent {
     private rout: ActivatedRoute,
     private stopService: BusStopsService,
     private fareService: FareService,
-    private route: Router
+    private route: Router,
+    private busService:BusesService
   ) {}
 
   ngOnInit() {
@@ -34,7 +36,20 @@ export class CustomerComponent {
     this.rout.queryParams.subscribe(params => {
       this.userId = params['userId'];
     });
+    // this.getAllBuses();
   }
+
+  // getAllBuses(){
+  //   this.busService.fetchAllBus().subscribe(
+  //     response => {
+  //       this.buses = response;
+  //       console.log(this.buses);
+  //     },
+  //     error => {
+  //       console.error('Error fetching bus stops:', error);
+  //     }
+  //   );
+  // }
 
   getBusStops() {
     this.stopService.getBusStops().subscribe(

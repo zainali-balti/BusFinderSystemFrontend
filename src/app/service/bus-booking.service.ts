@@ -22,4 +22,11 @@ export class BusBookingService {
     });
     return this.http.delete<any[]>(`${baseUrl}/api/bus_booking/delete/${bookingId}`,{headers});
   }
+  getBusBookingByUserId(userId:number): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<any[]>(`${baseUrl}/api/bus_booking/user/${userId}`,{headers});
+  }
 }

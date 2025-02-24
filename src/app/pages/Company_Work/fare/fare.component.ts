@@ -25,6 +25,7 @@ export class FareComponent {
     fare: null,
   };
   busId: string | null = null;
+  userId: string | null = null;
   busRouteId: string | null = null;
 
   constructor(
@@ -36,10 +37,11 @@ export class FareComponent {
   ) {
     this.activatedRoute.params.subscribe(params => {
       this.busId = params['busId'];
+      this.userId = params['userId'];
       this.busRouteId = params['busRouteId'];
 
       console.log('Params:', { busId: this.busId,
-         busRouteId: this.busRouteId });
+         busRouteId: this.busRouteId , userId:this.userId});
 
       if (this.busId) this.loadBuses(this.busId);
       if (this.busRouteId) this.loadRoutes(this.busRouteId);
@@ -65,23 +67,32 @@ export class FareComponent {
       this.fareService.addFares(this.fareData).subscribe(
         (response: any) => {
           const busId = response?.busId ?? response?.data?.busId;
-          console.log('🔄 Redirecting to:', `/fare-details/${busId}`);
           Swal.fire({
                                 title: 'Success!',
                                 text: 'Bus created successfully.',
                                 icon: 'success',
                                 confirmButtonText: 'OK'
                               }).then(() => {
-                                this.router.navigate(['/fare-details', response.busId]);
+                                this.router.navigate(['/fare-details', response.busId,this.userId]);
                               });
   },
         (error) => {
           console.error('Error adding fare:', error);
-          alert('Failed to add fare. Please try again.');
+          Swal.fire({
+                     title: 'Error!',
+                     text: 'Failed to add Fare.',
+                     icon: 'error',
+                     confirmButtonText: 'OK'
+                   });
         }
       );
     } else {
-      alert('Please fill out the form correctly.');
+      Swal.fire({
+                 title: 'All Fields!',
+                 text: 'Please Fill All Fields.',
+                 icon: 'error',
+                 confirmButtonText: 'OK'
+               });
     }
   }
   

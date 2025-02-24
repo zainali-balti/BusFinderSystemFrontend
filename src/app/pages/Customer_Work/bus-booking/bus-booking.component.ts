@@ -71,7 +71,12 @@ export class BusBookingComponent {
       },
       error => {
         console.error('Error booking bus', error);
-        alert('Failed to book bus. Please try again.');
+        Swal.fire({
+                   title: 'Error!',
+                   text: 'Failed to add Booked Bus.',
+                   icon: 'error',
+                   confirmButtonText: 'OK'
+                 });
       }
     );
   }

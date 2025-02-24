@@ -1,11 +1,95 @@
-<div class="container">
-    <button class="img-btn" (click)="navigateToBooking()">
-      <img src="https://www.topgear.com/sites/default/files/news-listicle/image/2023/09/LEAD.jpg?w=848&h=477" alt="Image 1">
-      <span class="btn-text" >Image 1</span>
-    </button>
-    <button class="img-btn" (click)="navigateToBusBooking()">
-      <img src="https://via.placeholder.com/500x300" alt="Image 2">
-      <span class="btn-text">Image 2</span>
-    </button>
-  </div>
-  
+<!-- Include Font Awesome in index.html -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<div class="container-fluid mt-5 fade-in">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar slide-in-left">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link active" href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-users"></i> Users</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-cogs"></i> Settings</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 slide-in-right">
+            <!-- Top Buttons -->
+            <!-- <div class="d-flex justify-content-between my-3 fade-in">
+                <button class="btn btn-warning btn-lg btn-animate shadow" (click)="navigateToBusBooking()">
+                    <i class="fas fa-bus"></i> All Buses
+                </button>
+                <button class="btn btn-danger btn-lg btn-animate shadow" (click)="navigateToBooking()">
+                    <i class="fas fa-car"></i> All Vehicles
+                </button>
+            </div> -->
+
+            <!-- Dashboard Cards -->
+            <div class="row d-flex justify-content-between">
+                <div class="col-md-3 zoom-in" (click)="navigateToBusBooking()">
+                    <div class="card text-white bg-warning mb-3 shadow-lg">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-bus"></i> See Available Buses</h5>
+                            <p class="card-text">totalBookings</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 zoom-in">
+                    <div class="card text-white bg-danger mb-3 shadow-lg">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-wallet"></i> My Wallet</h5>
+                            <p class="card-text"><strong>Balance:</strong> {{ walletDto.balance }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 zoom-in" (click)="navigateToBooking()">
+                    <div class="card text-white bg-warning mb-3 shadow-lg">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-car"></i> See Available Vehicles</h5>
+                            <p class="card-text">totalVehicles</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 zoom-in" (click)="navigateToTravelHistory()">
+                    <div class="card text-white bg-primary mb-3 shadow-lg">
+                        <div class="card-body text-center">
+                            <i class="fas fa-history fa-3x mb-2"></i>
+                            <h5 class="card-title">See Travelling History</h5>
+                            <p class="card-text">Past Trips</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Profile Section -->
+            <h3 class="mt-4 text-center fade-in"><i class="fas fa-user-circle"></i> User Profile</h3>
+            <div class="d-flex justify-content-center">
+                <div class="card profile-card shadow-lg zoom-in col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ user.firstName }} {{ user.lastName }}</h5>
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <td><i class="fas fa-envelope"></i> <strong>Email:</strong></td>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-phone-alt"></i> <strong>Phone No:</strong></td>
+                                    <td>{{ user.phoneNo }}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-user-tag"></i> <strong>User Role:</strong></td>
+                                    <td>{{ user.role }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+</div>

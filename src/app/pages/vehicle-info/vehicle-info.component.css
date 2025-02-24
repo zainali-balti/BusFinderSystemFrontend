@@ -1,0 +1,177 @@
+.vehicle-info-page {
+    width: 100%;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Top Section */
+  .hero-section {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+  
+  .hero-section img {
+    width: 100%;
+    height: auto;
+    filter: brightness(70%);
+  }
+  
+  .hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .hero-text h1 {
+    font-size: 3em;
+    margin: 0;
+  }
+  
+  .hero-text p {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
+  
+  .cta-button {
+    padding: 10px 20px;
+    background: #ec0016;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+  }
+  
+  .cta-button:hover {
+    background: #7c0303;
+    transform: translateY(-5px);
+  }
+  
+  .cta-button1 {
+    padding: 10px 20px;
+    background: #007ACC;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+  }
+  
+  .cta-button1:hover {
+    background: #007accbb;
+    transform: translateY(-5px);
+  }
+  /* Middle Section */
+  .details-section {
+    padding: 50px 20px;
+    text-align: center;
+    background: #fff;
+  }
+  
+  .details-section h2 {
+    font-size: 2.5em;
+    color: #333;
+  }
+  
+  .details-section p {
+    font-size: 1.2em;
+    color: #666;
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 800px;
+  }
+  
+  .feature-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+  }
+  
+  .feature-card {
+    background: #fafafa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+    max-width: 300px;
+    transition: transform 0.3s;
+  }
+  
+  .feature-card h3 {
+    color: #444;
+  }
+  
+  .feature-card p {
+    color: #777;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  /* How It Works Section */
+  .how-it-works-section {
+    background: #f9f9f9;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .how-it-works-section h2 {
+    font-size: 2.5em;
+    color: #444;
+  }
+  
+  .how-it-works-section ol {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+    color: #555;
+  }
+  
+  .how-it-works-section li {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+  }
+  
+  /* Bottom Section */
+  .cta-section {
+    text-align: center;
+    padding: 50px 20px;
+    background: #ff4757;
+    color: white;
+  }
+  
+  .cta-section h2 {
+    font-size: 2.5em;
+  }
+  
+  .cta-section p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .feature-cards {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .feature-card {
+      width: 80%;
+    }
+  
+    .hero-text h1 {
+      font-size: 2.5em;
+    }
+  
+    .hero-text p {
+      font-size: 1.2em;
+    }
+  }
+  

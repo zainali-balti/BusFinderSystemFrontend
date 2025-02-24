@@ -1,5 +1,7 @@
-<div class="container mt-5">
-    <h2>Add Bus Schedule</h2>
+<div class="container mt-5 col-md-6">
+  <div class="row justify-content-center"> 
+     <div class="col-md-8 col-lg-6">
+    <h2 class="text-center">Add Bus Schedule</h2>
     <form #scheduleForm="ngForm" (ngSubmit)="onSubmit(scheduleForm)">
       <div class="form-group">
         <label for="bus">Bus</label>
@@ -26,7 +28,15 @@
       </div>
   
   
-      <button type="submit" class="btn btn-primary" [disabled]="scheduleForm.invalid">Submit</button>
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary mt-5 w-50" [disabled]="scheduleForm.invalid">
+          Submit
+        </button>
+      </div>
+      
     </form>
+  </div>
+
+  </div>
   </div>
   

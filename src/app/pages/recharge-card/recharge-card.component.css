@@ -1,0 +1,138 @@
+/* Button Color Animation */
+.recharge-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .recharge-button:hover {
+    background: linear-gradient(45deg, #ff6b6b, #f7c948);
+  }
+  
+  /* Card Gradient Background Animation */
+  .card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    background: linear-gradient(120deg, #f8f9fa, #e9ecef);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: background 3s ease;
+  }
+  
+  .card-content:hover {
+    background: linear-gradient(120deg, #e9ecef, #f8f9fa, #e0e0e0);
+  }
+  
+  /* Heading Color Animation */
+  .card-details h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #007bff, #ff6b6b, #f7c948);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animateColor 4s linear infinite;
+    background-size: 200% 200%;
+  }
+  
+  @keyframes animateColor {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  /* Description Section Styles */
+.description-section {
+    margin-top: 40px;
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .description-section:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Heading Animation */
+  .description-section h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #007bff, #ff6b6b, #f7c948);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: colorFlow 6s linear infinite;
+    background-size: 200% 200%;
+  }
+  
+  @keyframes colorFlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  /* Text Animation */
+  .description-section p {
+    color: #555;
+    line-height: 1.6;
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Decorative Overlay */
+  .description-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+    transition: transform 0.5s ease;
+    z-index: 0;
+  }
+  
+  .description-section:hover::before {
+    transform: rotate(45deg);
+  }
+  
+  .description-section h2,
+  .description-section p {
+    position: relative;
+    z-index: 1;
+  }
+  

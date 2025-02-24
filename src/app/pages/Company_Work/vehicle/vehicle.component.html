@@ -1,6 +1,6 @@
 <!-- vehicle.component.html -->
-<div class="container mt-5">
-    <h2>Add Vehicle</h2>
+<div class="container mt-5 pb-5 col-md-6 bg-white rounded shadow">
+    <h2 class="text-center pt-3">Add Vehicle</h2>
     <form (ngSubmit)="onSubmit(vehicleForm)" #vehicleForm="ngForm">
       
       <!-- Image Preview -->
@@ -71,7 +71,10 @@
       </div>
   
       <!-- Submit Button -->
-      <button type="submit" class="btn btn-primary" [disabled]="!vehicleForm.form.valid">Add Vehicle</button>
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary mt-5 w-50" [disabled]="!vehicleForm.form.valid">Add Vehicle</button>
+      </div>
+     
     </form>
   </div>
   

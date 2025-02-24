@@ -44,5 +44,25 @@ export class VehicleService {
 
     return this.http.get(`${baseUrl}/api/company/${vehicleId}`, { headers });
   }
+  getVehicleByUserId(userId:number): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${baseUrl}/api/booking/user/${userId}`, { headers });
+  }
+  deleteBooking(bookingId:number): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('User is not authenticated');
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.delete(`${baseUrl}/api/booking/delete/${bookingId}`, { headers });
+  }
 
 }

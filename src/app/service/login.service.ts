@@ -8,15 +8,13 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class LoginService {
+  baseUrl: any;
 
   constructor(private http: HttpClient) {}
-
-  // Generate tokens by sending login data to backend
-  // public generateTokens(login: any): Observable<any> {
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  //   return this.http.post(`${baseUrl}/authenticate`,login,{ headers })
-  //     .pipe(catchError(this.handleError));
-  // }
+  googleLogin(idToken: string) {
+    return this.http.post(`${this.baseUrl}/google-login`, { idToken });
+  }
+  
   public generateTokens(login: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(`${baseUrl}/authenticate`, login, { headers })
@@ -25,14 +23,11 @@ export class LoginService {
         map((response: any) => {
           const token = response.token;
           this.logIn(token);
-          this.setUsers(response.user); // Store user data, including userId
+          this.setUsers(response.user); 
           return response;
         })
       );
   }
-  
-
-  // Retrieve the current user using the token
   public getCurrentUser(): Observable<any> {
     const token = this.getToken();
     if (!token) {
